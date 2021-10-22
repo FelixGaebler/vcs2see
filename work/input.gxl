@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE gxl SYSTEM "http://www.gupro.de/GXL/gxl-1.0.dtd">
+<gxl>
+	<graph edgeids="true" id="vcs4see">
+		<node id="N1">
+			<type xlink:href="Method"/>
+			<attr name="Source.Name">
+				<string>m1</string>
+			</attr>
+		</node>
+	</graph>
+</gxl>
