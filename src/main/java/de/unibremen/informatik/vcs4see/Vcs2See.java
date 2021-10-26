@@ -8,22 +8,34 @@ import lombok.extern.log4j.Log4j2;
 import net.sourceforge.gxl.GXLDocument;
 import net.sourceforge.gxl.GXLGraph;
 import net.sourceforge.gxl.GXLNode;
-import net.sourceforge.gxl.GXLString;
-import org.apache.regexp.RE;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URI;
-import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 @Log4j2
 public class Vcs2See {
 
+    private LocalDateTime start;
+
+    private LocalDateTime end;
+
     private VCSEngine engine;
 
-    public Vcs2See(String name, Boolean evolution, String repository) throws IOException {
+    private Map<LocalDate, List<Commit>> commitMap = new HashMap<>();
+
+    public Vcs2See(String name, String repository) throws IOException {
         load(repository);
-        crawl(name, evolution);
+        crawl();
+        process(name);
     }
 
     private void load(String repository) {
@@ -34,46 +46,51 @@ public class Vcs2See {
         log.info("Repository loaded successfully.");
     }
 
-    private void crawl(String name, Boolean evolution) throws IOException {
-        int index = 0;
-
+    private void crawl() throws IOException {
         for(RevisionRange revision : engine) {
             // Throw exception if commit amount is anything but 1
             if(revision.getCommits().size() != 1) {
                 throw new RuntimeException("Invalid commit amount per revision: " + revision.getCommits().size());
             }
 
+            // Get commit from revision
             Commit commit = revision.getCommits().get(0);
-            String author = commit.getAuthor();
 
-
-            if(evolution) {
-                write(name, index++);
+            // Get the lowest date from commits
+            if(this.start == null || commit.getDateTime().isBefore(start)) {
+                this.start = commit.getDateTime();
             }
-        }
 
-        if(!evolution) {
-            write(name);
+            // Get the highest date from commits
+            if(this.end == null || commit.getDateTime().isAfter(end)) {
+                this.end = commit.getDateTime();
+            }
+
+            LocalDate date = commit.getDateTime().toLocalDate();
+            commitMap.putIfAbsent(date, new ArrayList<>());
+            commitMap.get(date).add(commit);
         }
     }
 
-    private void process() {
+    private void process(String name) throws IOException {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+        long days = ChronoUnit.DAYS.between(this.start.toLocalDate(), this.end.toLocalDate());
+        System.out.println("Repository period: " + this.start.format(formatter) + " - " + this.end.format(formatter) + " (" + days + " days)");
 
-    }
+        for(int day = 0; day <= days; day++) {
+            LocalDate date = ChronoUnit.DAYS.addTo(this.start, day).toLocalDate();
 
-    private void write(String name) throws IOException {
-        write(name, null);
-    }
+            if(commitMap.containsKey(date)) {
+                List<Commit> commits = commitMap.get(date);
+                write(name, day, commits);
+            }
 
-    private void write(String name, Integer index) throws IOException {
-        process();
-
-        // Calculate path from index
-        String path = "output/" + name;
-        if(index != null) {
-            path += "-" + index;
+            write(name, day, new ArrayList<>());
         }
-        path += ".gxl";
+    }
+
+    private void write(String name, int index, List<Commit> commits) throws IOException {
+        String path = "output/" + name + "-" + index + ".gxl";
 
         // Prepare gxl file
         File file = new File(path);
