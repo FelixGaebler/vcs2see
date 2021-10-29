@@ -1,13 +1,17 @@
 package de.unibremen.informatik.vcs4see;
 
 import de.unibremen.informatik.st.libvcs4j.Commit;
+import de.unibremen.informatik.st.libvcs4j.FileChange;
 import de.unibremen.informatik.st.libvcs4j.RevisionRange;
 import de.unibremen.informatik.st.libvcs4j.VCSEngine;
 import de.unibremen.informatik.st.libvcs4j.VCSEngineBuilder;
 import lombok.extern.log4j.Log4j2;
+import net.sourceforge.gxl.GXLBag;
 import net.sourceforge.gxl.GXLDocument;
 import net.sourceforge.gxl.GXLGraph;
 import net.sourceforge.gxl.GXLNode;
+import net.sourceforge.gxl.GXLString;
+import net.sourceforge.gxl.GXLTup;
 
 import java.io.File;
 import java.io.IOException;
@@ -65,10 +69,9 @@ public class Vcs2See {
             if(this.end == null || commit.getDateTime().isAfter(end)) {
                 this.end = commit.getDateTime();
             }
-
+            
             LocalDate date = commit.getDateTime().toLocalDate();
-            commitMap.putIfAbsent(date, new ArrayList<>());
-            commitMap.get(date).add(commit);
+            commitMap.put(date, new ArrayList<>(revision.getCommits()));
         }
     }
 
@@ -81,8 +84,10 @@ public class Vcs2See {
             LocalDate date = ChronoUnit.DAYS.addTo(this.start, day).toLocalDate();
 
             if(commitMap.containsKey(date)) {
+                System.out.println(day);
                 List<Commit> commits = commitMap.get(date);
                 write(name, day, commits);
+                continue;
             }
 
             write(name, day, new ArrayList<>());
@@ -90,24 +95,61 @@ public class Vcs2See {
     }
 
     private void write(String name, int index, List<Commit> commits) throws IOException {
-        String path = "output/" + name + "-" + index + ".gxl";
+        String path = "output/" + name + "/" + name + "-" + index + ".gxl";
 
         // Prepare gxl file
         File file = new File(path);
+
+        // Clear directory
+        File dir = file.getParentFile();
+        if(dir.exists()) {
+            dir.delete();
+        }
         file.getParentFile().mkdirs();
+
         GXLDocument document = new GXLDocument();
-        GXLGraph graph = new GXLGraph("vcs2see");
+        GXLGraph graph = new GXLGraph(name);
 
         // Create nodes
-        for(int i = 0; i < 1; i++) {//TODO
-            GXLNode node = new GXLNode("N");
-            node.setType(URI.create("File"));
+        for(Commit commit : commits) {
+            GXLNode node = new GXLNode(commit.getId());
+            node.setType(URI.create("Commit"));
+            node.setAttr("timestamp", new GXLString(commit.getDateTime().format(DateTimeFormatter.ofPattern("dd.MM.yyyy, hh:mm"))));
+            node.setAttr("author", new GXLString(commit.getAuthor()));
+            node.setAttr("message", new GXLString(commit.getMessage()));
+
+            GXLBag changes = new GXLBag();
+            for (FileChange fileChange : commit.getFileChanges()) {
+                GXLTup change = new GXLTup();
+                change.add(new GXLString(fileChange.getType().name()));
+                change.add(new GXLString(fileChange.getOldFile().isPresent() ? fileChange.getOldFile().get().getRelativePath() : "NO"));
+                change.add(new GXLString(fileChange.getNewFile().isPresent() ? fileChange.getNewFile().get().getRelativePath() : "NO"));
+                changes.add(change);
+            }
+            node.setAttr("changes", changes);
+            
+            graph.add(node);
+        }
+
+        document.getDocumentElement().add(graph);
+        document.write(file);
+
+        /*
+        GXLDocument document = new GXLDocument();
+        GXLGraph graph = new GXLGraph(name);
+
+        // Create nodes
+        for(Commit commit : commits) {
+            GXLNode node = new GXLNode(commit.getId());
+            node.setType(URI.create("Commit"));
+            node.setAttr("timestamp", new GXLString(commit.getDateTime().format(DateTimeFormatter.ofPattern("dd.MM.yyyy, hh:mm"))));
             graph.add(node);
         }
 
         // Persist gxl file
         document.getDocumentElement().add(graph);
         document.write(file);
+         */
     }
 
 }
