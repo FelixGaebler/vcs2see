@@ -37,6 +37,8 @@ public class Vcs2See {
     private Map<LocalDate, List<Commit>> commitMap = new HashMap<>();
 
     public Vcs2See(String name, String repository) throws IOException {
+        GLXecutor glXecutor = new GLXecutor(GLXecutor.Language.JAVA);
+
         load(repository);
         crawl();
         process(name);
@@ -118,16 +120,19 @@ public class Vcs2See {
             node.setAttr("author", new GXLString(commit.getAuthor()));
             node.setAttr("message", new GXLString(commit.getMessage()));
 
+            /*
             GXLBag changes = new GXLBag();
             for (FileChange fileChange : commit.getFileChanges()) {
+                fileChange.getNewFile().get().
                 GXLTup change = new GXLTup();
                 change.add(new GXLString(fileChange.getType().name()));
                 change.add(new GXLString(fileChange.getOldFile().isPresent() ? fileChange.getOldFile().get().getRelativePath() : "NO"));
                 change.add(new GXLString(fileChange.getNewFile().isPresent() ? fileChange.getNewFile().get().getRelativePath() : "NO"));
                 changes.add(change);
             }
+
             node.setAttr("changes", changes);
-            
+             */
             graph.add(node);
         }
 
