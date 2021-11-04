@@ -15,15 +15,14 @@ import java.util.stream.Stream;
 
 public class GLXecutor {
 
-    private final String PATH = "C:\\Program Files (x86)\\Bauhaus\\bin\\";
-
-    public GLXecutor(Language language) throws IOException {
-        File directory = new File("");
+    public GLXecutor(String path, Language language) throws IOException {
+        File directory = new File(path);
+        System.out.println("Analysing " + directory.getAbsolutePath());
         cpf(directory, language);
         cpfcsv2rfg(directory);
         rfgexport(directory);
         long files = cleanup(directory);
-        System.out.println("Cleaned up " + files + "files");
+        System.out.println("Cleaned up " + files + " files");
     }
 
     private void run(ProcessBuilder processBuilder) throws IOException {
@@ -35,10 +34,10 @@ public class GLXecutor {
     }
 
     private void cpf(File directory, Language language) throws IOException {
-        List<String> cmd = new ArrayList<>(Arrays.asList(PATH + "cpf", "-m", "100", "-c", "clones.cpf", "-s", "clones.csv", "-a"));
+        List<String> cmd = new ArrayList<>(Arrays.asList("cpf", "-m", "100", "-c", "clones.cpf", "-s", "clones.csv", "-a"));
         for (String extension : language.getExtensions()) {
             cmd.add("-i");
-            cmd.add("\"." + extension + "\"");
+            cmd.add("\"*." + extension + "\"");
         }
         cmd.add(".");
 
@@ -51,7 +50,7 @@ public class GLXecutor {
 
     private void cpfcsv2rfg(File directory) throws IOException {
         ProcessBuilder processBuilder = new ProcessBuilder();
-        processBuilder.command("cpfcsv2rfg", "clones.cpf", "clones.csv", "clones.rfg");
+        processBuilder.command("rfgscript", "C:\\Program Files (x86)\\Bauhaus\\cpfcsv2rfg\\cpfcsv2rfg.py", "clones.cpf", "clones.csv", "clones.rfg");
         processBuilder.directory(directory);
 
         run(processBuilder);

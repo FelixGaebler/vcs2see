@@ -37,7 +37,6 @@ public class Vcs2See {
     private Map<LocalDate, List<Commit>> commitMap = new HashMap<>();
 
     public Vcs2See(String name, String repository) throws IOException {
-        GLXecutor glXecutor = new GLXecutor(GLXecutor.Language.JAVA);
 
         load(repository);
         crawl();

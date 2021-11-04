@@ -18,6 +18,9 @@ import java.net.URI;
 public class Main {
 
     public static void main(String[] args) throws IOException {
+        GLXecutor glXecutor = new GLXecutor("C:\\Users\\Felix Gaebler\\Desktop\\- Bachelorthesis - Felix Gaebler\\SEE", GLXecutor.Language.CS);
+
+        /*
         String NAME = args[0];
         String REPOSITORY = args[1];
 
@@ -33,6 +36,8 @@ public class Main {
         document.write(new File("TEST.gxl"));
 
         Vcs2See vcs2see = new Vcs2See(NAME, REPOSITORY);
+
+         */
     }
 
 }
