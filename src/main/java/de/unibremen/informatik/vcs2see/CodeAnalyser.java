@@ -1,5 +1,6 @@
 package de.unibremen.informatik.vcs2see;
 
+import de.unibremen.informatik.vcs2see.predicates.CleanupPredicate;
 import lombok.Getter;
 
 import java.io.BufferedReader;
@@ -9,6 +10,8 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 /**
@@ -28,11 +31,25 @@ public class CodeAnalyser {
     private String cpfcsv2rfgPath;
 
     /**
+     * Composes relative file path from available data.
+     * @param name name of the file/directory
+     * @param index index of the file, relative id of the commit
+     * @param ending file ending
+     * @return composed file path
+     */
+    private String path(String name, int index, String ending) {
+        return "\"" + name + "/" + name + "-" + index + ending + "\"";
+    }
+
+    /**
      * Helper method to run a ProcessBuilder and output the output to the console.
      * @param processBuilder ProcessBuilder which should be executed
      * @throws IOException exception
      */
     private void run(ProcessBuilder processBuilder) throws IOException {
+        System.out.println(String.join(" ", processBuilder.command()));
+
+        processBuilder.redirectErrorStream(true);
         Process process = processBuilder.start();
         BufferedReader input = new BufferedReader(new InputStreamReader(process.getInputStream()));
 
@@ -48,8 +65,8 @@ public class CodeAnalyser {
      * @param language programming language of the source code to be analyzed
      * @throws IOException exception
      */
-    private void cpf(File directory, Language language) throws IOException {
-        List<String> cmd = new ArrayList<>(Arrays.asList(bauhausPath + "\\cpf", "-B", directory.getAbsolutePath(), "-m", "100", "-c", "clones.cpf", "-s", "clones.csv", "-a"));
+    private void cpf(File directory, Language language, String name, int index) throws IOException {
+        List<String> cmd = new ArrayList<>(Arrays.asList(bauhausPath + "\\cpf", "-B", "\"src/main/java/\"", "-m", "100", "-c", path(name, index, ".cpf"), "-s", path(name, index, ".csv"), "-t", path(name, index, "")));
         for (String extension : language.getExtensions()) {
             cmd.add("-i");
             cmd.add("\"*." + extension + "\"");
@@ -68,9 +85,9 @@ public class CodeAnalyser {
      * @param directory directory in which the command is to be executed
      * @throws IOException exception
      */
-    private void cpfcsv2rfg(File directory) throws IOException {
+    private void cpfcsv2rfg(File directory, String name, int index) throws IOException {
         ProcessBuilder processBuilder = new ProcessBuilder();
-        processBuilder.command(bauhausPath + "\\rfgscript", cpfcsv2rfgPath + "\\cpfcsv2rfg.py", "clones.cpf", "clones.csv", "clones.rfg");
+        processBuilder.command(bauhausPath + "\\rfgscript", cpfcsv2rfgPath + "\\cpfcsv2rfg.py", (name + "-" + index + ".cpf"), (name + "-" + index + ".csv"), name + "-" + index + ".rfg");
         processBuilder.directory(directory);
 
         run(processBuilder);
@@ -84,34 +101,23 @@ public class CodeAnalyser {
      * @return
      */
     private File rfgexport(File directory, String name, int index) throws IOException {
-        // Compose filename.
-        String fileName = name + "-" + index + ".gxl";
-
-        // Create directory for output
-        File output = new File(directory, name);
-        output.mkdirs();
+        String fileName = name + "-" + index;
 
         ProcessBuilder processBuilder = new ProcessBuilder();
-        processBuilder.command(bauhausPath + "\\rfgexport", "-o", "Clones", "-f", "GXL", "clones.rfg", name + "\\" + fileName);
+        processBuilder.command(bauhausPath + "\\rfgexport", "-o", "Clones", "-f", "GXL", (fileName + ".rfg"), (fileName + ".gxl"));
         processBuilder.directory(directory);
 
         run(processBuilder);
-        return new File(output, fileName);
+        return new File(directory, (fileName + ".gxl"));
     }
 
     /**
-     *
+     * Cleans the working directory from unnecessary files.
      * @param directory directory in which the command is to be executed
-     * @return number of deleted files
      */
-    private long cleanup(File directory) {
-        return Stream.of(new File(directory, "clones.cpf").delete(),
-                        new File(directory, "clones.csv").delete(),
-                        new File(directory, "clones.rfg").delete(),
-                        new File(directory, "tokens.files").delete(),
-                        new File(directory, "tokens.tok").delete())
-                .filter(Boolean::booleanValue)
-                .count();
+    private void cleanup(File directory) {
+        Arrays.stream(Objects.requireNonNull(directory.listFiles(new CleanupPredicate())))
+                .forEach(File::delete);
     }
 
     /**
@@ -131,17 +137,22 @@ public class CodeAnalyser {
     }
 
     /**
-     * Start analysis in the repository specified during {@link #cpf(File, Language)}.
-     * @param fileName name of the GLX file to be output. file extension will be appended later
+     * Start analysis in the repository specified during {@link #cpf(File, Language, String, int)}.
+     * @param projectName name of the GLX file to be output. file extension will be appended later
      * @param index index of the file. Appended to the file name
      * @return generated GLX file
      * @throws IOException exception
      */
-    public File analyse(String fileName, int index) throws IOException {
-        cpf(directory, language);
-        cpfcsv2rfg(directory);
-        File file = rfgexport(directory, fileName, index);
-        cleanup(directory);
+    public File analyse(String projectName, int index) throws IOException {
+        // Create directory for output.
+        File output = new File(directory, projectName);
+        output.mkdirs();
+
+        // Run bauhaus commands.
+        cpf(directory, language, projectName, index);
+        cpfcsv2rfg(output, projectName, index);
+        File file = rfgexport(output, projectName, index);
+        cleanup(output);
 
         return file;
     }

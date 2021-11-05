@@ -1,14 +1,12 @@
 package de.unibremen.informatik.vcs2see;
 
 import de.unibremen.informatik.st.libvcs4j.Commit;
-import net.sourceforge.gxl.GXLAttr;
 import net.sourceforge.gxl.GXLDocument;
 import net.sourceforge.gxl.GXLGraph;
 import net.sourceforge.gxl.GXLNode;
 import net.sourceforge.gxl.GXLString;
 import org.xml.sax.SAXException;
 
-import java.io.DataInput;
 import java.io.File;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
