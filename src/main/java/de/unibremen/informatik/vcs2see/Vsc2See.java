@@ -3,6 +3,7 @@ package de.unibremen.informatik.vcs2see;
 import de.unibremen.informatik.vcs2see.predicates.BauhausPathPredicate;
 import de.unibremen.informatik.vcs2see.predicates.CpfCsv2RfgPathPredicate;
 import de.unibremen.informatik.vcs2see.predicates.RepositoryPathPredicate;
+import org.xml.sax.SAXException;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -56,7 +57,7 @@ public class Vsc2See {
      * Queries data about the repository and then starts crawling the repository.
      * @throws IOException exception
      */
-    public void crawl() throws IOException {
+    public void crawl() throws IOException, SAXException {
         consoleManager.print(" CRAWLER");
         consoleManager.printLine();
 
@@ -165,7 +166,7 @@ public class Vsc2See {
      *
      * @param args ignored
      */
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, SAXException {
         Vsc2See software = new Vsc2See();
         software.welcome();
         software.setup();

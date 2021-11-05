@@ -1,9 +1,12 @@
 package de.unibremen.informatik.vcs2see;
 
+import de.unibremen.informatik.st.libvcs4j.Commit;
 import de.unibremen.informatik.st.libvcs4j.RevisionRange;
 import de.unibremen.informatik.st.libvcs4j.VCSEngine;
 import de.unibremen.informatik.st.libvcs4j.VCSEngineBuilder;
+import org.xml.sax.SAXException;
 
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -57,15 +60,24 @@ public class RepositoryCrawler {
      * Start crawling the repository. This may take a few minutes.
      * @throws IOException exception
      */
-    public void crawl() throws IOException {
+    public void crawl() throws IOException, SAXException {
         CodeAnalyser codeAnalyser = new CodeAnalyser();
         codeAnalyser.init(path, language);
 
+        GraphModifier graphModifier = new GraphModifier();
+        graphModifier.init(name);
+
         int index = 1;
         for (RevisionRange revision : engine) {
-            codeAnalyser.analyse(name, index);
+            for(Commit commit : revision.getCommits()) {
+                File file = codeAnalyser.analyse(name, index);
 
-            index++;
+                graphModifier.loadFile(file);
+                graphModifier.modify(commit);
+                graphModifier.saveFile();
+
+                index++;
+            }
         }
     }
 
