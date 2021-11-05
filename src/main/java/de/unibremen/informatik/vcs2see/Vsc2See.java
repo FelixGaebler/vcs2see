@@ -114,6 +114,7 @@ public class Vsc2See {
         // Start crawling the repository.
         RepositoryCrawler repositoryCrawler = new RepositoryCrawler();
         repositoryCrawler.init(name, line, type, language);
+        repositoryCrawler.crawl();
 
         consoleManager.printLine();
     }

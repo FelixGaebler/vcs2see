@@ -63,7 +63,7 @@ public class RepositoryCrawler {
 
         int index = 1;
         for (RevisionRange revision : engine) {
-            codeAnalyser.analyse(name + "-" + index);
+            codeAnalyser.analyse(name, index);
 
             index++;
         }

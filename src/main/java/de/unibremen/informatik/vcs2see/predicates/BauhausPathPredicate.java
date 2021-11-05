@@ -19,17 +19,17 @@ public class BauhausPathPredicate implements Predicate<String> {
             return false;
         }
 
-        if(!new File(directory, "cpf").exists()) {
+        if(!new File(directory, "cpf.exe").exists()) {
             System.out.println("cpf not found in path");
             return false;
         }
 
-        if(!new File(directory, "rfgscript").exists()) {
+        if(!new File(directory, "rfgscript.exe").exists()) {
             System.out.println("rfgscript not found in path");
             return false;
         }
 
-        if(!new File(directory, "rfgexport").exists()) {
+        if(!new File(directory, "rfgexport.exe").exists()) {
             System.out.println("rfgexport not found in path");
             return false;
         }

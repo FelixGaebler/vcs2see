@@ -49,7 +49,7 @@ public class CodeAnalyser {
      * @throws IOException exception
      */
     private void cpf(File directory, Language language) throws IOException {
-        List<String> cmd = new ArrayList<>(Arrays.asList(bauhausPath + "cpf", "-m", "100", "-c", "clones.cpf", "-s", "clones.csv", "-a"));
+        List<String> cmd = new ArrayList<>(Arrays.asList(bauhausPath + "\\cpf", "-m", "100", "-c", "clones.cpf", "-s", "clones.csv", "-a"));
         for (String extension : language.getExtensions()) {
             cmd.add("-i");
             cmd.add("\"*." + extension + "\"");
@@ -70,7 +70,7 @@ public class CodeAnalyser {
      */
     private void cpfcsv2rfg(File directory) throws IOException {
         ProcessBuilder processBuilder = new ProcessBuilder();
-        processBuilder.command(bauhausPath + "rfgscript", cpfcsv2rfgPath + "cpfcsv2rfg.py", "clones.cpf", "clones.csv", "clones.rfg");
+        processBuilder.command(bauhausPath + "\\rfgscript", cpfcsv2rfgPath + "\\cpfcsv2rfg.py", "clones.cpf", "clones.csv", "clones.rfg");
         processBuilder.directory(directory);
 
         run(processBuilder);
@@ -82,9 +82,13 @@ public class CodeAnalyser {
      * @param fileName name of the output GLX file
      * @throws IOException
      */
-    private void rfgexport(File directory, String fileName) throws IOException {
+    private void rfgexport(File directory, String fileName, int index) throws IOException {
+        // Create directory for output
+        File output = new File(directory, fileName);
+        output.mkdirs();
+
         ProcessBuilder processBuilder = new ProcessBuilder();
-        processBuilder.command(bauhausPath + "rfgexport", "-o", "Clones", "-f", "GXL", "clones.rfg", fileName + ".gxl");
+        processBuilder.command(bauhausPath + "\\rfgexport", "-o", "Clones", "-f", "GXL", "clones.rfg", fileName + "\\" + fileName + "-" + index + ".gxl");
         processBuilder.directory(directory);
 
         run(processBuilder);
@@ -124,12 +128,13 @@ public class CodeAnalyser {
     /**
      * Start analysis in the repository specified during {@link #cpf(File, Language)}.
      * @param fileName name of the GLX file to be output. file extension will be appended later
+     * @param index index of the file. Appended to the file name
      * @throws IOException exception
      */
-    public void analyse(String fileName) throws IOException {
+    public void analyse(String fileName, int index) throws IOException {
         cpf(directory, language);
         cpfcsv2rfg(directory);
-        rfgexport(directory, fileName);
+        rfgexport(directory, fileName, index);
         cleanup(directory);
     }
 
