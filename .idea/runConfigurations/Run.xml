@@ -1,6 +1,6 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Run" type="Application" factoryName="Application">
-    <option name="MAIN_CLASS_NAME" value="de.unibremen.informatik.vcs4see.Main" />
+    <option name="MAIN_CLASS_NAME" value="de.unibremen.informatik.vcs2see.Vsc2See" />
     <module name="vcs2see" />
     <option name="PROGRAM_PARAMETERS" value="vcs2see &quot;C:\Users\felig\Documents\Universität\vcs2see\example\hellogitworld&quot;" />
     <method v="2">
