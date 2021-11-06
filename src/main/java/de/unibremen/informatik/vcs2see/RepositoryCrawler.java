@@ -65,14 +65,13 @@ public class RepositoryCrawler {
         codeAnalyser.init(path, language);
 
         GraphModifier graphModifier = new GraphModifier();
-        graphModifier.init(name);
 
         int index = 1;
         for (RevisionRange revision : engine) {
             for(Commit commit : revision.getCommits()) {
                 File file = codeAnalyser.analyse(name, index);
 
-                graphModifier.loadFile(file);
+                graphModifier.loadFile(file, language);
                 graphModifier.modify(commit);
                 graphModifier.saveFile();
 

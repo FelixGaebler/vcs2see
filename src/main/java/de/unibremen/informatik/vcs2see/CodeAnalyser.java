@@ -12,7 +12,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * Component to run axivion suite / baushaus on a given path.
@@ -161,21 +160,23 @@ public class CodeAnalyser {
      * Enum of supported programming languages of Bauhaus including the file extensions of this programming language.
      */
     public enum Language {
-        C("C", "i", "c", "h"),
-        CPP("C++", "ii", "cpp", "cxx", "c++", "cc", "tcc", "hpp", "hxx", "h++", "hh", "C", "H", "inl", "preinc"),
-        CS("C#", "cs"),
-        ADA("Ada", "adb", "ads", "ada"),
-        JAVA("Java", "java");
-
-        @Getter
-        private final String label;
+        C(".*\\.i|.c|.h", "i", "c", "h"),
+        CPP(".*\\.ii|.c|.h", "ii", "cpp", "cxx", "c++", "cc", "tcc", "hpp", "hxx", "h++", "hh", "C", "H", "inl", "preinc"),
+        CS(".*\\.cs", "cs"),
+        ADA(".*\\.adb|.ads|.ada", "adb", "ads", "ada"),
+        JAVA(".*\\.java", "java");
 
         @Getter
         private final String[] extensions;
 
-        Language(String label, String... extensions) {
-            this.label = label;
+        Language(String... extensions) {
             this.extensions = extensions;
+        }
+
+        public String regex() {
+            return ".*\\" + Arrays.stream(extensions)
+                    .map(extension -> "." + extension)
+                    .collect(Collectors.joining("|"));
         }
     }
 
