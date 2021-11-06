@@ -1,5 +1,6 @@
 package de.unibremen.informatik.vcs2see;
 
+import de.unibremen.informatik.vcs2see.predicates.BasePathPredicate;
 import de.unibremen.informatik.vcs2see.predicates.BauhausPathPredicate;
 import de.unibremen.informatik.vcs2see.predicates.CpfCsv2RfgPathPredicate;
 import de.unibremen.informatik.vcs2see.predicates.RepositoryPathPredicate;
@@ -49,6 +50,7 @@ public class Vsc2See {
 
         setupStep("path.bauhaus", new BauhausPathPredicate());
         setupStep("path.cpfcsv2rfg", new CpfCsv2RfgPathPredicate());
+        setupStep("path.base", new BasePathPredicate());
 
         propertiesManager.saveProperties();
     }

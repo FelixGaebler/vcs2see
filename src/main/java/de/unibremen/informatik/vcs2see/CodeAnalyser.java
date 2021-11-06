@@ -65,7 +65,11 @@ public class CodeAnalyser {
      * @throws IOException exception
      */
     private void cpf(File directory, Language language, String name, int index) throws IOException {
-        List<String> cmd = new ArrayList<>(Arrays.asList(bauhausPath + "\\cpf", "-B", "\"src/main/java/\"", "-m", "100", "-c", path(name, index, ".cpf"), "-s", path(name, index, ".csv"), "-t", path(name, index, "")));
+        PropertiesManager propertiesManager = new PropertiesManager();
+        propertiesManager.loadProperties();
+        String basePath = propertiesManager.getProperty("path.base").orElse("");
+
+        List<String> cmd = new ArrayList<>(Arrays.asList(bauhausPath + "\\cpf", "-B", "\"" + basePath + "\"", "-m", "100", "-c", path(name, index, ".cpf"), "-s", path(name, index, ".csv"), "-t", path(name, index, "")));
         for (String extension : language.getExtensions()) {
             cmd.add("-i");
             cmd.add("\"*." + extension + "\"");
@@ -160,11 +164,11 @@ public class CodeAnalyser {
      * Enum of supported programming languages of Bauhaus including the file extensions of this programming language.
      */
     public enum Language {
-        C(".*\\.i|.c|.h", "i", "c", "h"),
-        CPP(".*\\.ii|.c|.h", "ii", "cpp", "cxx", "c++", "cc", "tcc", "hpp", "hxx", "h++", "hh", "C", "H", "inl", "preinc"),
-        CS(".*\\.cs", "cs"),
-        ADA(".*\\.adb|.ads|.ada", "adb", "ads", "ada"),
-        JAVA(".*\\.java", "java");
+        C("i", "c", "h"),
+        CPP("ii", "cpp", "cxx", "c++", "cc", "tcc", "hpp", "hxx", "h++", "hh", "C", "H", "inl", "preinc"),
+        CS("cs"),
+        ADA("adb", "ads", "ada"),
+        JAVA("java");
 
         @Getter
         private final String[] extensions;

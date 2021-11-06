@@ -3,11 +3,7 @@ package de.unibremen.informatik.vcs2see;
 import de.unibremen.informatik.st.libvcs4j.Commit;
 import de.unibremen.informatik.st.libvcs4j.FileChange;
 import de.unibremen.informatik.st.libvcs4j.VCSFile;
-import net.sourceforge.gxl.GXLDocument;
-import net.sourceforge.gxl.GXLElement;
-import net.sourceforge.gxl.GXLGraph;
-import net.sourceforge.gxl.GXLNode;
-import net.sourceforge.gxl.GXLString;
+import net.sourceforge.gxl.*;
 import org.xml.sax.SAXException;
 
 import java.io.File;
@@ -56,7 +52,7 @@ public class GraphModifier {
      * Adds version history information to the loaded GLX file.
      * @param commit commit from which the information should be extracted
      */
-    public void modify(Commit commit) {
+    public void modify(Commit commit) throws IOException {
         GXLGraph commitGraph = new GXLGraph("Commit");
         commitGraph.setEdgeIDs(true);
 
@@ -76,21 +72,26 @@ public class GraphModifier {
             }
         }
 
-        System.out.println("-----------------------------------------");
+        System.out.println("-----------------------------");
+
+        PropertiesManager propertiesManager = new PropertiesManager();
+        propertiesManager.loadProperties();
+        String basePath = propertiesManager.getProperty("path.base").orElse("");
 
         for (FileChange fileChange : commit.getFileChanges()) {
             VCSFile file = fileChange.getNewFile().orElse(fileChange.getOldFile().orElse(null));
             if(file == null) {
-                System.out.println("file null");
                 continue;
             }
 
-            if(!file.getRelativePath().matches(language.regex())) {
-                System.out.println("regex unmatch");
+            String path = file.getRelativePath()
+                    .replace('\\', '/')
+                    .replaceAll(basePath, "");
+            if(!path.matches(language.regex())) {
                 continue;
             }
 
-            System.out.println(file.getRelativePath());
+            System.out.println(path);
         }
 
         GXLNode node = new GXLNode(commit.getId());

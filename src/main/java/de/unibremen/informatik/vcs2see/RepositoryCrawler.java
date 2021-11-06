@@ -27,7 +27,7 @@ public class RepositoryCrawler {
 
     /**
      * Initialization method for the RepositoryCrawler.
-     * @param name name of the GLX files (without index) which are output by the {@link CodeAnalyser} (see {@link CodeAnalyser#analyse(String)}).
+     * @param name name of the GLX files (without index) which are output by the {@link CodeAnalyser} (see {@link CodeAnalyser#analyse(String, int)}).
      * @param path path to the repository which should be crawled
      * @param type type of repository to be crawled
      * @param language programming language of repository to be crawled
@@ -61,8 +61,10 @@ public class RepositoryCrawler {
      * @throws IOException exception
      */
     public void crawl() throws IOException, SAXException {
+        String temp = engine.getOutput().toAbsolutePath().toString();
+
         CodeAnalyser codeAnalyser = new CodeAnalyser();
-        codeAnalyser.init(path, language);
+        codeAnalyser.init(temp, language);
 
         GraphModifier graphModifier = new GraphModifier();
 
