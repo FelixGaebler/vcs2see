@@ -107,8 +107,6 @@ public class GraphModifier {
                 continue;
             }
 
-            
-
             // Calculate most recent changes
             mostRecent.remove(path);
             mostRecent.addFirst(path);
@@ -118,7 +116,7 @@ public class GraphModifier {
                 mostFrequent.put(path, 1);
             }
 
-            if(nodes.containsKey()) {
+            if(nodes.containsKey(path)) {
                 GXLNode node = nodes.get(file.getRelativePath());
                 /*
                 node.setAttr("Metric.Vcs2See.Recent_Commit", new GXLString(commit.getId()));
