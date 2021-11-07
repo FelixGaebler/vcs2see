@@ -3,14 +3,24 @@ package de.unibremen.informatik.vcs2see;
 import de.unibremen.informatik.st.libvcs4j.Commit;
 import de.unibremen.informatik.st.libvcs4j.FileChange;
 import de.unibremen.informatik.st.libvcs4j.VCSFile;
-import net.sourceforge.gxl.*;
+import net.sourceforge.gxl.GXLDocument;
+import net.sourceforge.gxl.GXLElement;
+import net.sourceforge.gxl.GXLGraph;
+import net.sourceforge.gxl.GXLInt;
+import net.sourceforge.gxl.GXLNode;
+import net.sourceforge.gxl.GXLString;
 import org.xml.sax.SAXException;
 
 import java.io.File;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayDeque;
+import java.util.Deque;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.Map;
+import java.util.PriorityQueue;
+import java.util.Queue;
 
 /**
  * Component which can modify the graph of the GXL file.
@@ -27,6 +37,10 @@ public class GraphModifier {
     private CodeAnalyser.Language language;
 
     private Map<String, GXLNode> nodes;
+
+    private Deque<String> mostRecent;
+
+    private Map<String, Integer> mostFrequent;
 
     /**
      * Loads the specified GLX file .
@@ -46,6 +60,8 @@ public class GraphModifier {
         this.document = new GXLDocument(file);
         this.language = language;
         this.nodes = new HashMap<>();
+        this.mostFrequent = new HashMap<>();
+        this.mostRecent = new ArrayDeque<>();
     }
 
     /**
@@ -91,15 +107,37 @@ public class GraphModifier {
                 continue;
             }
 
-            System.out.println(path);
+            
+
+            // Calculate most recent changes
+            mostRecent.remove(path);
+            mostRecent.addFirst(path);
+
+            // Calculate most frequent changes
+            if(mostFrequent.computeIfPresent(path, (k, v) -> v + 1) == null) {
+                mostFrequent.put(path, 1);
+            }
+
+            if(nodes.containsKey()) {
+                GXLNode node = nodes.get(file.getRelativePath());
+                /*
+                node.setAttr("Metric.Vcs2See.Recent_Commit", new GXLString(commit.getId()));
+                node.setAttr("Metric.Vcs2See.Recent_Author", new GXLString(commit.getAuthor()));
+                node.setAttr("Metric.Vcs2See.Recent_Timestamp", new GXLString(commit.getDateTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)));
+                */
+                node.setAttr("Metric.Vcs2See.Most_Frequent_Edit", new GXLInt(255));
+                node.setAttr("Metric.Vcs2See.Most_Recent_Edit", new GXLInt(1));
+            }
         }
 
-        GXLNode node = new GXLNode(commit.getId());
-        node.setAttr("id", new GXLString(commit.getId()));
-        node.setAttr("author", new GXLString(commit.getAuthor()));
-        node.setAttr("message", new GXLString(commit.getMessage()));
-        node.setAttr("timestamp", new GXLString(commit.getDateTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)));
-        commitGraph.add(node);
+        if(2/1 == 3) {
+            GXLNode node = new GXLNode(commit.getId());
+            node.setAttr("id", new GXLString(commit.getId()));
+            node.setAttr("author", new GXLString(commit.getAuthor()));
+            node.setAttr("message", new GXLString(commit.getMessage()));
+            node.setAttr("timestamp", new GXLString(commit.getDateTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)));
+            commitGraph.add(node);
+        }
 
         document.getDocumentElement().add(commitGraph);
     }
