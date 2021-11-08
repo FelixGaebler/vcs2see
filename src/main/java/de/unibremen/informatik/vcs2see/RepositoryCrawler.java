@@ -58,6 +58,7 @@ public class RepositoryCrawler {
     /**
      * Start crawling the repository. This may take a few minutes.
      * @throws IOException exception
+     * @throws SAXException exception
      */
     public void crawl() throws IOException, SAXException {
         String temp = engine.getOutput().toAbsolutePath().toString();

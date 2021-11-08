@@ -142,7 +142,7 @@ public class Vsc2See {
      */
     public void run() throws IOException, SAXException {
         // Start crawling the repository.
-        RepositoryCrawler repositoryCrawler = new RepositoryCrawler(repositoryData);
+        RepositoryCrawler repositoryCrawler = new RepositoryCrawler(repositoryData, environmentData);
         repositoryCrawler.crawl();
 
         consoleManager.printLine();
