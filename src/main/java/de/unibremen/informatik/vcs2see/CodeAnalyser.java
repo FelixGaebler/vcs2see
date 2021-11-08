@@ -1,5 +1,7 @@
 package de.unibremen.informatik.vcs2see;
 
+import de.unibremen.informatik.vcs2see.data.EnvironmentData;
+import de.unibremen.informatik.vcs2see.data.RepositoryData;
 import de.unibremen.informatik.vcs2see.predicates.CleanupPredicate;
 import lombok.Getter;
 
@@ -21,23 +23,32 @@ import java.util.stream.Collectors;
  */
 public class CodeAnalyser {
 
-    private File directory;
+    private final File directory;
 
-    private Language language;
+    private final EnvironmentData environmentData;
 
-    private String bauhausPath;
+    private final RepositoryData repositoryData;
 
-    private String cpfcsv2rfgPath;
+    /**
+     * Initialization for the CodeAnalyser.
+     * @param path path to the repository to be analyzed
+     * @param repositoryData all the required information about the repository
+     * @param environmentData all the required information about the environment
+     */
+    public CodeAnalyser(String path, RepositoryData repositoryData, EnvironmentData environmentData) {
+        this.directory = new File(path);
+        this.repositoryData = repositoryData;
+        this.environmentData = environmentData;
+    }
 
     /**
      * Composes relative file path from available data.
-     * @param name name of the file/directory
      * @param index index of the file, relative id of the commit
      * @param ending file ending
      * @return composed file path
      */
-    private String path(String name, int index, String ending) {
-        return "\"" + name + "/" + name + "-" + index + ending + "\"";
+    private String path(int index, String ending) {
+        return "\"" + repositoryData.getName() + "/" + repositoryData.getName() + "-" + index + ending + "\"";
     }
 
     /**
@@ -61,16 +72,15 @@ public class CodeAnalyser {
     /**
      * Run the clone analysis with cpf.
      * @param directory directory in which the command is to be executed
-     * @param language programming language of the source code to be analyzed
+     * @param revision index of the revision to be analyzed
      * @throws IOException exception
      */
-    private void cpf(File directory, Language language, String name, int index) throws IOException {
+    private void cpf(File directory, int revision) throws IOException {
         PropertiesManager propertiesManager = new PropertiesManager();
         propertiesManager.loadProperties();
-        String basePath = propertiesManager.getProperty("path.base").orElse("");
 
-        List<String> cmd = new ArrayList<>(Arrays.asList(bauhausPath + "\\cpf", "-B", "\"" + basePath + "\"", "-m", "100", "-c", path(name, index, ".cpf"), "-s", path(name, index, ".csv"), "-t", path(name, index, "")));
-        for (String extension : language.getExtensions()) {
+        List<String> cmd = new ArrayList<>(Arrays.asList(environmentData.getBauhausPath() + "\\cpf", "-B", "\"" + repositoryData.getBasePath() + "\"", "-m", "100", "-c", path(revision, ".cpf"), "-s", path(revision, ".csv"), "-t", path(revision, "")));
+        for (String extension : repositoryData.getLanguage().getExtensions()) {
             cmd.add("-i");
             cmd.add("\"*." + extension + "\"");
         }
@@ -86,11 +96,14 @@ public class CodeAnalyser {
     /**
      * Generate an RFG from the clone information.
      * @param directory directory in which the command is to be executed
+     * @param revision index of the revision to be analyzed
      * @throws IOException exception
      */
-    private void cpfcsv2rfg(File directory, String name, int index) throws IOException {
+    private void cpfcsv2rfg(File directory, int revision) throws IOException {
+        String fileName = repositoryData.getName() + "-" + revision;
+
         ProcessBuilder processBuilder = new ProcessBuilder();
-        processBuilder.command(bauhausPath + "\\rfgscript", cpfcsv2rfgPath + "\\cpfcsv2rfg.py", (name + "-" + index + ".cpf"), (name + "-" + index + ".csv"), name + "-" + index + ".rfg");
+        processBuilder.command(environmentData.getBauhausPath() + "\\rfgscript", environmentData.getCpfcsv2rfgPath() + "\\cpfcsv2rfg.py", fileName + ".cpf", fileName + ".csv", fileName + ".rfg");
         processBuilder.directory(directory);
 
         run(processBuilder);
@@ -99,15 +112,15 @@ public class CodeAnalyser {
     /**
      * Export the clone information in the RFG to a GXL file.
      * @param directory directory in which the command is to be executed
-     * @param name name of the output GLX file
-     * @throws IOException
-     * @return
+     * @param revision index of the revision to be analyzed
+     * @throws IOException exception
+     * @return generated file
      */
-    private File rfgexport(File directory, String name, int index) throws IOException {
-        String fileName = name + "-" + index;
+    private File rfgexport(File directory, int revision) throws IOException {
+        String fileName = repositoryData.getName() + "-" + revision;
 
         ProcessBuilder processBuilder = new ProcessBuilder();
-        processBuilder.command(bauhausPath + "\\rfgexport", "-o", "Clones", "-f", "GXL", (fileName + ".rfg"), (fileName + ".gxl"));
+        processBuilder.command(environmentData.getBauhausPath() + "\\rfgexport", "-o", "Clones", "-f", "GXL", fileName + ".rfg", fileName + ".gxl");
         processBuilder.directory(directory);
 
         run(processBuilder);
@@ -124,37 +137,20 @@ public class CodeAnalyser {
     }
 
     /**
-     * Initialization method for the CodeAnalyser.
-     * @param path path to the repository to be analyzed
-     * @param language programming language of the repository to be analyzed
-     * @throws IOException exception
-     */
-    public void init(String path, Language language) throws IOException {
-        this.directory = new File(path);
-        this.language = language;
-
-        PropertiesManager propertiesManager = new PropertiesManager();
-        propertiesManager.loadProperties();
-        this.bauhausPath = propertiesManager.getProperty("path.bauhaus").orElseThrow();
-        this.cpfcsv2rfgPath = propertiesManager.getProperty("path.cpfcsv2rfg").orElseThrow();
-    }
-
-    /**
-     * Start analysis in the repository specified during {@link #cpf(File, Language, String, int)}.
-     * @param projectName name of the GLX file to be output. file extension will be appended later
-     * @param index index of the file. Appended to the file name
+     * Start analysis in the repository.
+     * @param revision index of the revision to be analyzed
      * @return generated GLX file
      * @throws IOException exception
      */
-    public File analyse(String projectName, int index) throws IOException {
+    public File analyse(int revision) throws IOException {
         // Create directory for output.
-        File output = new File(directory, projectName);
+        File output = new File(directory, repositoryData.getName());
         output.mkdirs();
 
         // Run bauhaus commands.
-        cpf(directory, language, projectName, index);
-        cpfcsv2rfg(output, projectName, index);
-        File file = rfgexport(output, projectName, index);
+        cpf(directory, revision);
+        cpfcsv2rfg(output, revision);
+        File file = rfgexport(output, revision);
         cleanup(output);
 
         return file;

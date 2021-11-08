@@ -4,14 +4,14 @@ import de.unibremen.informatik.st.libvcs4j.Commit;
 import de.unibremen.informatik.st.libvcs4j.RevisionRange;
 import de.unibremen.informatik.st.libvcs4j.VCSEngine;
 import de.unibremen.informatik.st.libvcs4j.VCSEngineBuilder;
+import de.unibremen.informatik.vcs2see.data.EnvironmentData;
+import de.unibremen.informatik.vcs2see.data.RepositoryData;
 import org.xml.sax.SAXException;
 
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.URI;
 import java.nio.file.Files;
-import java.nio.file.Path;
 
 /**
  * Component which uses LibVCS4j to traverse the repository and run an analysis on each revision.
@@ -21,41 +21,36 @@ import java.nio.file.Path;
  */
 public class RepositoryCrawler {
 
-    private VCSEngine engine;
+    private final VCSEngine engine;
 
-    private String name;
+    private final RepositoryData repositoryData;
 
-    private String path;
-
-    private CodeAnalyser.Language language;
+    private final EnvironmentData environmentData;
 
     /**
-     * Initialization method for the RepositoryCrawler.
-     * @param name name of the GLX files (without index) which are output by the {@link CodeAnalyser} (see {@link CodeAnalyser#analyse(String, int)}).
-     * @param path path to the repository which should be crawled
-     * @param type type of repository to be crawled
-     * @param language programming language of repository to be crawled
+     * Initialization for the RepositoryCrawler.
+     * @param repositoryData all the required information about the repository
+     * @param environmentData all the required information about the environment
      */
-    public void init(String name, String path, Type type, CodeAnalyser.Language language) {
-        this.name = name;
-        this.path = path;
-        this.language = language;
+    public RepositoryCrawler(RepositoryData repositoryData, EnvironmentData environmentData) {
+        this.repositoryData = repositoryData;
+        this.environmentData = environmentData;
 
-        switch (type) {
+        switch (repositoryData.getType()) {
             case GIT:
-                engine = VCSEngineBuilder.ofGit(path).build();
+                engine = VCSEngineBuilder.ofGit(repositoryData.getPath()).build();
                 break;
 
             case HG:
-                engine = VCSEngineBuilder.ofHG(path).build();
+                engine = VCSEngineBuilder.ofHG(repositoryData.getPath()).build();
                 break;
 
             case SVN:
-                engine = VCSEngineBuilder.ofSVN(path).build();
+                engine = VCSEngineBuilder.ofSVN(repositoryData.getPath()).build();
                 break;
 
             default:
-                engine = VCSEngineBuilder.of(path).build();
+                engine = VCSEngineBuilder.of(repositoryData.getPath()).build();
                 break;
         }
     }
@@ -67,17 +62,15 @@ public class RepositoryCrawler {
     public void crawl() throws IOException, SAXException {
         String temp = engine.getOutput().toAbsolutePath().toString();
 
-        CodeAnalyser codeAnalyser = new CodeAnalyser();
-        codeAnalyser.init(temp, language);
-
-        GraphModifier graphModifier = new GraphModifier();
+        CodeAnalyser codeAnalyser = new CodeAnalyser(temp, repositoryData, environmentData);
+        GraphModifier graphModifier = new GraphModifier(repositoryData);
 
         int index = 1;
         for (RevisionRange revision : engine) {
             for(Commit commit : revision.getCommits()) {
-                File file = codeAnalyser.analyse(name, index);
+                File file = codeAnalyser.analyse(index);
 
-                graphModifier.loadFile(file, language);
+                graphModifier.loadFile(file);
                 graphModifier.loadNodes();
                 graphModifier.queryCommitData(commit);
                 graphModifier.populateNodes();
@@ -89,7 +82,7 @@ public class RepositoryCrawler {
         }
 
         // Copy result from temp directory to execution path.
-        Files.copy(new File(temp, name).toPath(), new FileOutputStream("."));
+        Files.copy(new File(temp, repositoryData.getName()).toPath(), new FileOutputStream("."));
     }
 
     /**

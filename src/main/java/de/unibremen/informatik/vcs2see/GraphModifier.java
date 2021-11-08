@@ -3,6 +3,7 @@ package de.unibremen.informatik.vcs2see;
 import de.unibremen.informatik.st.libvcs4j.Commit;
 import de.unibremen.informatik.st.libvcs4j.FileChange;
 import de.unibremen.informatik.st.libvcs4j.VCSFile;
+import de.unibremen.informatik.vcs2see.data.RepositoryData;
 import net.sourceforge.gxl.GXLDocument;
 import net.sourceforge.gxl.GXLElement;
 import net.sourceforge.gxl.GXLGraph;
@@ -14,7 +15,6 @@ import org.xml.sax.SAXException;
 import java.io.File;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -29,11 +29,11 @@ import java.util.Map;
  */
 public class GraphModifier {
 
+    private final RepositoryData repositoryData;
+
     private File file;
 
     private GXLDocument document;
-
-    private CodeAnalyser.Language language;
 
     private Map<String, GXLNode> nodes;
 
@@ -41,7 +41,8 @@ public class GraphModifier {
 
     private final Map<String, Integer> mostFrequent;
 
-    public GraphModifier() {
+    public GraphModifier(RepositoryData repositoryData) {
+        this.repositoryData = repositoryData;
         this.mostFrequent = new HashMap<>();
         this.mostRecent = new LinkedList<>();
     }
@@ -49,11 +50,10 @@ public class GraphModifier {
     /**
      * Loads the specified GLX file .
      * @param file file to load
-     * @param language programming language of the project
      * @throws IOException exception
      * @throws SAXException exception
      */
-    public void loadFile(File file, CodeAnalyser.Language language) throws IOException, SAXException {
+    public void loadFile(File file) throws IOException, SAXException {
         if(!file.exists()) {
             System.err.println("File " + file.getName() + " not found");
             return;
@@ -62,7 +62,6 @@ public class GraphModifier {
         // Load GLX file.
         this.file = file;
         this.document = new GXLDocument(file);
-        this.language = language;
     }
 
     public void loadNodes() {
@@ -103,7 +102,7 @@ public class GraphModifier {
             String path = file.getRelativePath()
                     .replace('\\', '/')
                     .replaceAll(basePath, "");
-            if(!path.matches(language.regex())) {
+            if(!path.matches(repositoryData.getLanguage().regex())) {
                 continue;
             }
 

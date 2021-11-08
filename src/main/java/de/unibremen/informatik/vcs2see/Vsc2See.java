@@ -1,14 +1,13 @@
 package de.unibremen.informatik.vcs2see;
 
-import de.unibremen.informatik.vcs2see.predicates.BasePathPredicate;
+import de.unibremen.informatik.vcs2see.data.EnvironmentData;
+import de.unibremen.informatik.vcs2see.data.RepositoryData;
 import de.unibremen.informatik.vcs2see.predicates.BauhausPathPredicate;
 import de.unibremen.informatik.vcs2see.predicates.CpfCsv2RfgPathPredicate;
 import de.unibremen.informatik.vcs2see.predicates.RepositoryPathPredicate;
 import org.xml.sax.SAXException;
 
-import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.Predicate;
@@ -27,6 +26,10 @@ public class Vsc2See {
 
     private final ConsoleManager consoleManager;
 
+    private EnvironmentData environmentData;
+
+    private RepositoryData repositoryData;
+
     public Vsc2See() {
         this.propertiesManager = new PropertiesManager();
         this.consoleManager = new ConsoleManager();
@@ -40,51 +43,65 @@ public class Vsc2See {
     }
 
     /**
-     * Runs the setup in the console. Application paths and other settings are queried.
+     * Runs the setup in the console. Environment and repository settings are queried.
      * @throws IOException exception
      */
     public void setup() throws IOException {
         propertiesManager.loadProperties();
         consoleManager.printLine();
 
-        consoleManager.print(" SETUP");
-        consoleManager.printLine();
-
-        setupStep("path.bauhaus", new BauhausPathPredicate());
-        setupStep("path.cpfcsv2rfg", new CpfCsv2RfgPathPredicate());
-        setupStep("path.base", new BasePathPredicate());
+        this.environmentData = setupEnvironment();
+        this.repositoryData = setupRepository();
 
         propertiesManager.saveProperties();
     }
 
     /**
-     * Queries data about the repository and then starts crawling the repository.
+     * Queries the paths to required applications.
+     * @return environment data object
      * @throws IOException exception
      */
-    public void crawl() throws IOException, SAXException {
-        consoleManager.print(" CRAWLER");
+    private EnvironmentData setupEnvironment() throws IOException {
+        EnvironmentData environmentData = new EnvironmentData();
+
+        consoleManager.print(" ENVIRONMENT");
+        consoleManager.printLine();
+
+        environmentData.setBauhausPath(propertySetupStep("path.bauhaus", new BauhausPathPredicate()));
+        environmentData.setCpfcsv2rfgPath(propertySetupStep("path.cpfcsv2rfg", new CpfCsv2RfgPathPredicate()));
+
+        return environmentData;
+    }
+
+    /**
+     * Queries the required data about the repository.
+     * @return repository data object
+     * @throws IOException exception
+     */
+    private RepositoryData setupRepository() throws IOException {
+        RepositoryData repositoryData = new RepositoryData();
+
+        consoleManager.print(" REPOSITORY");
         consoleManager.printLine();
 
         boolean valid;
-        String line;
-        String name;
-        CodeAnalyser.Language language = null;
-        RepositoryCrawler.Type type = null;
+        String input;
 
-        // Name of the exported files.
+        // Repository name.
         do {
-            name = consoleManager.readLine("Export name : ");
-            valid = !name.isBlank();
+            input = consoleManager.readLine("Export name : ");
+            valid = !input.isBlank();
         } while (!valid);
+        repositoryData.setName(input);
 
-        // Type of repository to crawl.
+        // Repository type.
         do {
             String types = Arrays.stream(RepositoryCrawler.Type.values())
                     .map(RepositoryCrawler.Type::name)
                     .collect(Collectors.joining(", "));
-            line = consoleManager.readLine("Repository type (" + types + "): ");
+            input = consoleManager.readLine("Repository type (" + types + "): ");
             try {
-                type = RepositoryCrawler.Type.valueOf(line);
+                repositoryData.setType(RepositoryCrawler.Type.valueOf(input));
                 valid = true;
             } catch (IllegalArgumentException e) {
                 consoleManager.print("Invalid type");
@@ -92,14 +109,14 @@ public class Vsc2See {
             }
         } while (!valid);
 
-        // Programming language of repository to crawl.
+        // Repository programming language.
         do {
             String languages = Arrays.stream(CodeAnalyser.Language.values())
                     .map(CodeAnalyser.Language::name)
                     .collect(Collectors.joining(", "));
-            line = consoleManager.readLine("Language of repository (" + languages + "): ");
+            input = consoleManager.readLine("Language of repository (" + languages + "): ");
             try {
-                language = CodeAnalyser.Language.valueOf(line);
+                repositoryData.setLanguage(CodeAnalyser.Language.valueOf(input));
                 valid = true;
             } catch (IllegalArgumentException e) {
                 consoleManager.print("Invalid language");
@@ -107,18 +124,25 @@ public class Vsc2See {
             }
         } while (!valid);
 
-        // Path to repository to crawl.
+        // Repository path.
         do {
-            line = consoleManager.readLine("Path to repository: ");
-            RepositoryPathPredicate predicate = new RepositoryPathPredicate(type);
-            valid = predicate.test(line);
+            input = consoleManager.readLine("Path to repository: ");
+            RepositoryPathPredicate predicate = new RepositoryPathPredicate(repositoryData.getType());
+            valid = predicate.test(input);
         } while (!valid);
+        repositoryData.setPath(input);
 
-        consoleManager.print("Repository found! Starting crawler...");
+        return repositoryData;
+    }
 
+    /**
+     * Starts crawling and analysing the repository.
+     * @throws IOException exception
+     * @throws SAXException exception
+     */
+    public void run() throws IOException, SAXException {
         // Start crawling the repository.
-        RepositoryCrawler repositoryCrawler = new RepositoryCrawler();
-        repositoryCrawler.init(name, line, type, language);
+        RepositoryCrawler repositoryCrawler = new RepositoryCrawler(repositoryData);
         repositoryCrawler.crawl();
 
         consoleManager.printLine();
@@ -130,7 +154,7 @@ public class Vsc2See {
      * @param predicate a condition that must be met for the input
      * @throws IOException exception
      */
-    private void setupStep(String key, Predicate<String> predicate) throws IOException {
+    private String propertySetupStep(String key, Predicate<String> predicate) throws IOException {
         // Load and print current value
         Optional<String> optional = propertiesManager.getProperty(key);
         consoleManager.print(key + ": " + optional.orElse("<not set>"));
@@ -162,11 +186,12 @@ public class Vsc2See {
         } while (!valid);
 
         consoleManager.printLine();
+        return propertiesManager.getProperty(key).orElseThrow();
     }
 
     /**
      * The entry point of the application.
-     * Performs steps of the sequence one by one.
+     * Perform steps of the sequence one by one.
      *
      * @param args ignored
      */
@@ -174,7 +199,7 @@ public class Vsc2See {
         Vsc2See software = new Vsc2See();
         software.welcome();
         software.setup();
-        software.crawl();
+        software.run();
     }
 
 }
