@@ -9,9 +9,10 @@ import de.unibremen.informatik.vcs2see.data.RepositoryData;
 import org.xml.sax.SAXException;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * Component which uses LibVCS4j to traverse the repository and run an analysis on each revision.
@@ -83,7 +84,24 @@ public class RepositoryCrawler {
         }
 
         // Copy result from temp directory to execution path.
-        Files.copy(new File(temp, repositoryData.getName()).toPath(), new FileOutputStream("."));
+        copyDirectory(new File(temp, repositoryData.getName()).toPath(), ".");
+    }
+
+    /**
+     * Copies directory from source to destination.
+     * @param source source directory
+     * @param destination destination directory
+     * @throws IOException exception
+     */
+    private void copyDirectory(Path source, String destination) throws IOException {
+        Files.walk(source).forEach(src -> {
+            Path dest = Paths.get(destination, src.toString().substring(destination.length()));
+            try {
+                Files.copy(src, dest);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        });
     }
 
     /**
