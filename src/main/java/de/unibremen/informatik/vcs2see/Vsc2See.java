@@ -6,7 +6,9 @@ import de.unibremen.informatik.vcs2see.predicates.CpfCsv2RfgPathPredicate;
 import de.unibremen.informatik.vcs2see.predicates.RepositoryPathPredicate;
 import org.xml.sax.SAXException;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.Arrays;
 import java.util.Optional;
 import java.util.function.Predicate;

@@ -37,9 +37,14 @@ public class GraphModifier {
 
     private Map<String, GXLNode> nodes;
 
-    private Deque<String> mostRecent;
+    private final Deque<String> mostRecent;
 
-    private Map<String, Integer> mostFrequent;
+    private final Map<String, Integer> mostFrequent;
+
+    public GraphModifier() {
+        this.mostFrequent = new HashMap<>();
+        this.mostRecent = new LinkedList<>();
+    }
 
     /**
      * Loads the specified GLX file .
@@ -58,19 +63,12 @@ public class GraphModifier {
         this.file = file;
         this.document = new GXLDocument(file);
         this.language = language;
-        this.nodes = new HashMap<>();
-        this.mostFrequent = new HashMap<>();
-        this.mostRecent = new LinkedList<>();
     }
 
-    /**
-     * Adds version history information to the loaded GLX file.
-     * @param commit commit from which the information should be extracted
-     */
-    public void modify(Commit commit) throws IOException {
-        GXLGraph commitGraph = new GXLGraph("Commit");
-        commitGraph.setEdgeIDs(true);
+    public void loadNodes() {
+        this.nodes = new HashMap<>();
 
+        // Load nodes.
         GXLGraph clonesGraph = document.getDocumentElement().getGraphAt(0);
         for(int i = 0; i < clonesGraph.getGraphElementCount(); i++) {
             GXLElement element = clonesGraph.getGraphElementAt(i);
@@ -82,18 +80,20 @@ public class GraphModifier {
                 }
 
                 GXLString linkage = (GXLString) node.getAttr("Linkage.Name").getValue();
-                System.out.println(linkage.getValue());
                 nodes.put(linkage.getValue(), node);
             }
         }
+    }
 
-        System.out.println("-----------------------------");
-
+    /**
+     * Adds version history information to the loaded GLX file.
+     * @param commit commit from which the information should be extracted
+     */
+    public void queryCommitData(Commit commit) throws IOException {
         PropertiesManager propertiesManager = new PropertiesManager();
         propertiesManager.loadProperties();
         String basePath = propertiesManager.getProperty("path.base").orElse("");
 
-        List<String> changes = new ArrayList<>();
         for (FileChange fileChange : commit.getFileChanges()) {
             VCSFile file = fileChange.getNewFile().orElse(fileChange.getOldFile().orElse(null));
             if(file == null) {
@@ -115,28 +115,31 @@ public class GraphModifier {
             if(mostFrequent.computeIfPresent(path, (k, v) -> v + 1) == null) {
                 mostFrequent.put(path, 1);
             }
-
-            if(!nodes.containsKey(path)) {
-                System.err.println("ERROR " + path);
-            }
         }
+    }
 
+    public void populateNodes() {
         List<String> list = (LinkedList<String>) mostRecent;
         for(int i = 0; i < list.size(); i++) {
-            String path = list.get(0);
+            String path = list.get(i);
             if(nodes.containsKey(path)) {
                 GXLNode node = nodes.get(path);
                 node.setAttr("Metric.Vcs2See.Most_Recent_Edit", new GXLInt(interpolateMostRecent(list.size(), i)));
             }
         }
+    }
+
+    public void addCommitGraph(Commit commit) {
+        GXLGraph commitGraph = new GXLGraph("Commit");
+        commitGraph.setEdgeIDs(true);
 
         GXLNode node = new GXLNode(commit.getId());
         node.setAttr("id", new GXLString(commit.getId()));
         node.setAttr("author", new GXLString(commit.getAuthor()));
         node.setAttr("message", new GXLString(commit.getMessage()));
         node.setAttr("timestamp", new GXLString(commit.getDateTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)));
-        commitGraph.add(node);
 
+        commitGraph.add(node);
         document.getDocumentElement().add(commitGraph);
     }
 

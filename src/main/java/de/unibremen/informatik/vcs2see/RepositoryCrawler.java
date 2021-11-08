@@ -7,7 +7,11 @@ import de.unibremen.informatik.st.libvcs4j.VCSEngineBuilder;
 import org.xml.sax.SAXException;
 
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 /**
  * Component which uses LibVCS4j to traverse the repository and run an analysis on each revision.
@@ -74,12 +78,18 @@ public class RepositoryCrawler {
                 File file = codeAnalyser.analyse(name, index);
 
                 graphModifier.loadFile(file, language);
-                graphModifier.modify(commit);
+                graphModifier.loadNodes();
+                graphModifier.queryCommitData(commit);
+                graphModifier.populateNodes();
+                graphModifier.addCommitGraph(commit);
                 graphModifier.saveFile();
 
                 index++;
             }
         }
+
+        // Copy result from temp directory to execution path.
+        Files.copy(new File(temp, name).toPath(), new FileOutputStream("."));
     }
 
     /**
