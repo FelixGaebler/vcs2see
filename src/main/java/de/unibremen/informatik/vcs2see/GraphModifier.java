@@ -14,13 +14,12 @@ import org.xml.sax.SAXException;
 import java.io.File;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Deque;
 import java.util.HashMap;
 import java.util.LinkedList;
+import java.util.List;
 import java.util.Map;
-import java.util.PriorityQueue;
-import java.util.Queue;
 
 /**
  * Component which can modify the graph of the GXL file.
@@ -61,7 +60,7 @@ public class GraphModifier {
         this.language = language;
         this.nodes = new HashMap<>();
         this.mostFrequent = new HashMap<>();
-        this.mostRecent = new ArrayDeque<>();
+        this.mostRecent = new LinkedList<>();
     }
 
     /**
@@ -94,6 +93,7 @@ public class GraphModifier {
         propertiesManager.loadProperties();
         String basePath = propertiesManager.getProperty("path.base").orElse("");
 
+        List<String> changes = new ArrayList<>();
         for (FileChange fileChange : commit.getFileChanges()) {
             VCSFile file = fileChange.getNewFile().orElse(fileChange.getOldFile().orElse(null));
             if(file == null) {
@@ -116,28 +116,39 @@ public class GraphModifier {
                 mostFrequent.put(path, 1);
             }
 
-            if(nodes.containsKey(path)) {
-                GXLNode node = nodes.get(file.getRelativePath());
-                /*
-                node.setAttr("Metric.Vcs2See.Recent_Commit", new GXLString(commit.getId()));
-                node.setAttr("Metric.Vcs2See.Recent_Author", new GXLString(commit.getAuthor()));
-                node.setAttr("Metric.Vcs2See.Recent_Timestamp", new GXLString(commit.getDateTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)));
-                */
-                node.setAttr("Metric.Vcs2See.Most_Frequent_Edit", new GXLInt(255));
-                node.setAttr("Metric.Vcs2See.Most_Recent_Edit", new GXLInt(1));
+            if(!nodes.containsKey(path)) {
+                System.err.println("ERROR " + path);
             }
         }
 
-        if(2/1 == 3) {
-            GXLNode node = new GXLNode(commit.getId());
-            node.setAttr("id", new GXLString(commit.getId()));
-            node.setAttr("author", new GXLString(commit.getAuthor()));
-            node.setAttr("message", new GXLString(commit.getMessage()));
-            node.setAttr("timestamp", new GXLString(commit.getDateTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)));
-            commitGraph.add(node);
+        List<String> list = (LinkedList<String>) mostRecent;
+        for(int i = 0; i < list.size(); i++) {
+            String path = list.get(0);
+            if(nodes.containsKey(path)) {
+                GXLNode node = nodes.get(path);
+                node.setAttr("Metric.Vcs2See.Most_Recent_Edit", new GXLInt(interpolateMostRecent(list.size(), i)));
+            }
         }
 
+        GXLNode node = new GXLNode(commit.getId());
+        node.setAttr("id", new GXLString(commit.getId()));
+        node.setAttr("author", new GXLString(commit.getAuthor()));
+        node.setAttr("message", new GXLString(commit.getMessage()));
+        node.setAttr("timestamp", new GXLString(commit.getDateTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)));
+        commitGraph.add(node);
+
         document.getDocumentElement().add(commitGraph);
+    }
+
+    private int interpolateMostRecent(int size, int index) {
+        int step = 255 / (size - 1);
+        return 255 - (step  * index);
+    }
+
+    private float interpolateMostFrequent(int value) {
+        float min = mostFrequent.values().stream().min(Integer::compareTo).orElse(0);
+        float max = mostFrequent.values().stream().max(Integer::compareTo).orElse(255);
+        return (255 / (max - min)) * (value - min);
     }
 
     /**
