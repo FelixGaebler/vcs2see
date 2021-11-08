@@ -132,6 +132,14 @@ public class Vsc2See {
         } while (!valid);
         repositoryData.setPath(input);
 
+        // Repository base path.
+        input = consoleManager.readLine("Base path of repository (src/main/java): ");
+        if(input.isBlank()) {
+            input = "src/main/java";
+        }
+        repositoryData.setBasePath(input);
+
+        consoleManager.printLine();
         return repositoryData;
     }
 
@@ -144,8 +152,6 @@ public class Vsc2See {
         // Start crawling the repository.
         RepositoryCrawler repositoryCrawler = new RepositoryCrawler(repositoryData, environmentData);
         repositoryCrawler.crawl();
-
-        consoleManager.printLine();
     }
 
     /**

@@ -6,6 +6,7 @@ import de.unibremen.informatik.st.libvcs4j.VCSEngine;
 import de.unibremen.informatik.st.libvcs4j.VCSEngineBuilder;
 import de.unibremen.informatik.vcs2see.data.EnvironmentData;
 import de.unibremen.informatik.vcs2see.data.RepositoryData;
+import org.apache.commons.io.FileUtils;
 import org.xml.sax.SAXException;
 
 import java.io.File;
@@ -66,10 +67,12 @@ public class RepositoryCrawler {
 
         CodeAnalyser codeAnalyser = new CodeAnalyser(temp, repositoryData, environmentData);
         GraphModifier graphModifier = new GraphModifier(repositoryData);
+        ConsoleManager consoleManager = new ConsoleManager();
 
         int index = 1;
         for (RevisionRange revision : engine) {
             for(Commit commit : revision.getCommits()) {
+                consoleManager.print("Commit: " + commit.getId());
                 File file = codeAnalyser.analyse(index);
 
                 graphModifier.loadFile(file);
@@ -80,22 +83,20 @@ public class RepositoryCrawler {
                 graphModifier.saveFile();
 
                 index++;
+                consoleManager.printLine();
             }
         }
 
         // Copy result from temp directory to execution path.
-        copyDirectory(new File(temp, repositoryData.getName()).toPath(), ".");
+        File folder = new File(repositoryData.getName());
+        FileUtils.deleteDirectory(folder);
+        FileUtils.copyDirectory(new File(temp, repositoryData.getName()), folder);
+        //copyDirectory(new File(temp, repositoryData.getName()).getAbsolutePath(), folder.getAbsolutePath());
     }
 
-    /**
-     * Copies directory from source to destination.
-     * @param source source directory
-     * @param destination destination directory
-     * @throws IOException exception
-     */
-    private void copyDirectory(Path source, String destination) throws IOException {
-        Files.walk(source).forEach(src -> {
-            Path dest = Paths.get(destination, src.toString().substring(destination.length()));
+    public static void copyDirectory(String source, String destination) throws IOException {
+        Files.walk(Paths.get(source)).forEach(src -> {
+            Path dest = Paths.get(destination, src.toString().substring(source.length()));
             try {
                 Files.copy(src, dest);
             } catch (IOException e) {

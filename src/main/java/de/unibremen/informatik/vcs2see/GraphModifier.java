@@ -4,22 +4,13 @@ import de.unibremen.informatik.st.libvcs4j.Commit;
 import de.unibremen.informatik.st.libvcs4j.FileChange;
 import de.unibremen.informatik.st.libvcs4j.VCSFile;
 import de.unibremen.informatik.vcs2see.data.RepositoryData;
-import net.sourceforge.gxl.GXLDocument;
-import net.sourceforge.gxl.GXLElement;
-import net.sourceforge.gxl.GXLGraph;
-import net.sourceforge.gxl.GXLInt;
-import net.sourceforge.gxl.GXLNode;
-import net.sourceforge.gxl.GXLString;
+import net.sourceforge.gxl.*;
 import org.xml.sax.SAXException;
 
 import java.io.File;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
-import java.util.Deque;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Component which can modify the graph of the GXL file.
@@ -67,6 +58,8 @@ public class GraphModifier {
     public void loadNodes() {
         this.nodes = new HashMap<>();
 
+        System.out.println("Nodes:");
+
         // Load nodes.
         GXLGraph clonesGraph = document.getDocumentElement().getGraphAt(0);
         for(int i = 0; i < clonesGraph.getGraphElementCount(); i++) {
@@ -79,6 +72,7 @@ public class GraphModifier {
                 }
 
                 GXLString linkage = (GXLString) node.getAttr("Linkage.Name").getValue();
+                System.out.println(" - " + linkage.getValue());
                 nodes.put(linkage.getValue(), node);
             }
         }
@@ -93,9 +87,11 @@ public class GraphModifier {
         propertiesManager.loadProperties();
         String basePath = propertiesManager.getProperty("path.base").orElse("");
 
+        System.out.println("Changes:");
         for (FileChange fileChange : commit.getFileChanges()) {
             VCSFile file = fileChange.getNewFile().orElse(fileChange.getOldFile().orElse(null));
             if(file == null) {
+                System.err.println("No file");
                 continue;
             }
 
@@ -105,6 +101,8 @@ public class GraphModifier {
             if(!path.matches(repositoryData.getLanguage().regex())) {
                 continue;
             }
+
+            System.out.println("- " + path);
 
             // Calculate most recent changes
             mostRecent.remove(path);
