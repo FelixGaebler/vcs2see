@@ -120,9 +120,11 @@ public class GraphModifier {
         for(int i = 0; i < list.size(); i++) {
             String path = list.get(i);
             if(nodes.containsKey(path)) {
+                int frequent = Math.round(interpolateMostFrequent(mostFrequent.getOrDefault(path, 0)));
+
                 GXLNode node = nodes.get(path);
                 node.setAttr("Metric.Vcs2See.Most_Recent_Edit", new GXLInt(interpolateMostRecent(list.size(), i)));
-                node.setAttr("Metric.Vcs2See.Most_Frequent_Edit", new GXLFloat(interpolateMostFrequent(mostFrequent.getOrDefault(path, 0))));
+                node.setAttr("Metric.Vcs2See.Most_Frequent_Edit", new GXLInt(frequent));
             }
         }
     }
