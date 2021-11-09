@@ -122,6 +122,7 @@ public class GraphModifier {
             if(nodes.containsKey(path)) {
                 GXLNode node = nodes.get(path);
                 node.setAttr("Metric.Vcs2See.Most_Recent_Edit", new GXLInt(interpolateMostRecent(list.size(), i)));
+                node.setAttr("Metric.Vcs2See.Most_Frequent_Edit", new GXLFloat(interpolateMostFrequent(mostFrequent.getOrDefault(path, 0))));
             }
         }
     }

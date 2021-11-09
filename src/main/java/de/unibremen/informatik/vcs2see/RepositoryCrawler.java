@@ -91,18 +91,6 @@ public class RepositoryCrawler {
         File folder = new File(repositoryData.getName());
         FileUtils.deleteDirectory(folder);
         FileUtils.copyDirectory(new File(temp, repositoryData.getName()), folder);
-        //copyDirectory(new File(temp, repositoryData.getName()).getAbsolutePath(), folder.getAbsolutePath());
-    }
-
-    public static void copyDirectory(String source, String destination) throws IOException {
-        Files.walk(Paths.get(source)).forEach(src -> {
-            Path dest = Paths.get(destination, src.toString().substring(source.length()));
-            try {
-                Files.copy(src, dest);
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-        });
     }
 
     /**
