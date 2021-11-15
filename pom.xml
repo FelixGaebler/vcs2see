@@ -13,17 +13,17 @@
         <dependency>
             <groupId>de.uni-bremen.informatik.st</groupId>
             <artifactId>libvcs4j</artifactId>
-            <version>1.7.0</version>
+            <version>1.8.0</version>
         </dependency>
         <dependency>
             <groupId>de.uni-bremen.informatik.st</groupId>
             <artifactId>libvcs4j-api</artifactId>
-            <version>1.7.0</version>
+            <version>1.8.0</version>
         </dependency>
         <dependency>
             <groupId>de.uni-bremen.informatik.st</groupId>
             <artifactId>libvcs4j-tools</artifactId>
-            <version>1.7.0</version>
+            <version>1.8.0</version>
         </dependency>
 
         <!-- Output format -->

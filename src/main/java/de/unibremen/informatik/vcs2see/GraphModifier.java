@@ -2,6 +2,7 @@ package de.unibremen.informatik.vcs2see;
 
 import de.unibremen.informatik.st.libvcs4j.Commit;
 import de.unibremen.informatik.st.libvcs4j.FileChange;
+import de.unibremen.informatik.st.libvcs4j.LineChange;
 import de.unibremen.informatik.st.libvcs4j.VCSFile;
 import de.unibremen.informatik.vcs2see.data.RepositoryData;
 import net.sourceforge.gxl.*;
@@ -100,6 +101,18 @@ public class GraphModifier {
                     .replaceAll(basePath, "");
             if(!path.matches(repositoryData.getLanguage().regex())) {
                 continue;
+            }
+
+            // Calculate and add line changes.
+            if(nodes.containsKey(path)) {
+                List<LineChange> lineChanges = fileChange.computeDiff();
+                int inserted = (int) lineChanges.stream().filter(lineChange -> lineChange.getType() == LineChange.Type.INSERT).count();
+                int deleted = (int) lineChanges.stream().filter(lineChange -> lineChange.getType() == LineChange.Type.DELETE).count();
+
+                GXLNode node = nodes.get(path);
+                node.setAttr("Metric.Vcs2See.Commit.Line_Changes", new GXLInt(lineChanges.size()));
+                node.setAttr("Metric.Vcs2See.Commit.Lines_Added", new GXLInt(inserted));
+                node.setAttr("Metric.Vcs2See.Commit.Lines_Deleted", new GXLInt(deleted));
             }
 
             System.out.println("- " + path);
