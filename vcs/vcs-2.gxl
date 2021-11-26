@@ -220,8 +220,14 @@
 	</graph>
 	<graph edgeids="true" id="Commit">
 		<node id="a637fefa29d220f1ca9572c76c7690380d92ec62">
-			<attr name="id">
+			<attr name="Linkage.Name">
 				<string>a637fefa29d220f1ca9572c76c7690380d92ec62</string>
+			</attr>
+			<attr name="Source.Name">
+				<string>GIT</string>
+			</attr>
+			<attr name="Source.Path">
+				<string>C:\Users\Felix Gaebler\Desktop\- Bachelorthesis - Felix Gaebler\example</string>
 			</attr>
 			<attr name="author">
 				<string>Felix Gaebler</string>
