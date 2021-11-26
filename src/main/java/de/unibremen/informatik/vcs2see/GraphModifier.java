@@ -110,9 +110,9 @@ public class GraphModifier {
                 int deleted = (int) lineChanges.stream().filter(lineChange -> lineChange.getType() == LineChange.Type.DELETE).count();
 
                 GXLNode node = nodes.get(path);
-                node.setAttr("Metric.Vcs2See.Commit.Line_Changes", new GXLFloat(lineChanges.size()));
-                node.setAttr("Metric.Vcs2See.Commit.Lines_Added", new GXLFloat(inserted));
-                node.setAttr("Metric.Vcs2See.Commit.Lines_Deleted", new GXLFloat(deleted));
+                node.setAttr("Metric.Vcs2See.Commit.Line_Changes", new GXLInt(lineChanges.size()));
+                node.setAttr("Metric.Vcs2See.Commit.Lines_Added", new GXLInt(inserted));
+                node.setAttr("Metric.Vcs2See.Commit.Lines_Deleted", new GXLInt(deleted));
             }
 
             System.out.println("- " + path);
@@ -136,8 +136,8 @@ public class GraphModifier {
                 int frequent = Math.round(interpolateMostFrequent(mostFrequent.getOrDefault(path, 0)));
 
                 GXLNode node = nodes.get(path);
-                node.setAttr("Metric.Vcs2See.Most_Recent_Edit", new GXLFloat(interpolateMostRecent(list.size(), i)));
-                node.setAttr("Metric.Vcs2See.Most_Frequent_Edit", new GXLFloat(frequent));
+                node.setAttr("Metric.Vcs2See.Most_Recent_Edit", new GXLInt(interpolateMostRecent(list.size(), i)));
+                node.setAttr("Metric.Vcs2See.Most_Frequent_Edit", new GXLInt(frequent));
             }
         }
     }
