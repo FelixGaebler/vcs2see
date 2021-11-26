@@ -3,6 +3,28 @@
 <!DOCTYPE gxl
   SYSTEM "http://www.gupro.de/GXL/gxl-1.0.dtd">
 <gxl xmlns:xlink="http://www.w3.org/1999/xlink">
+	<graph edgeids="true" id="Commit">
+		<node id="5843909e320e0466832fa6d85c43e425a6cad40a">
+			<attr name="Linkage.Name">
+				<string>5843909e320e0466832fa6d85c43e425a6cad40a</string>
+			</attr>
+			<attr name="Source.Name">
+				<string>GIT</string>
+			</attr>
+			<attr name="Source.Path">
+				<string>C:\Users\Felix Gaebler\Desktop\- Bachelorthesis - Felix Gaebler\example</string>
+			</attr>
+			<attr name="author">
+				<string>Felix G</string>
+			</attr>
+			<attr name="message">
+				<string>Added graph modifier</string>
+			</attr>
+			<attr name="timestamp">
+				<string>2021-11-05T14:49:57</string>
+			</attr>
+		</node>
+	</graph>
 	<graph edgeids="true" id="Clones">
 		<node id="N1">
 			<type xlink:href="File"/>
@@ -433,27 +455,5 @@
 				<int>1</int>
 			</attr>
 		</edge>
-	</graph>
-	<graph edgeids="true" id="Commit">
-		<node id="5843909e320e0466832fa6d85c43e425a6cad40a">
-			<attr name="Linkage.Name">
-				<string>5843909e320e0466832fa6d85c43e425a6cad40a</string>
-			</attr>
-			<attr name="Source.Name">
-				<string>GIT</string>
-			</attr>
-			<attr name="Source.Path">
-				<string>C:\Users\Felix Gaebler\Desktop\- Bachelorthesis - Felix Gaebler\example</string>
-			</attr>
-			<attr name="author">
-				<string>Felix G</string>
-			</attr>
-			<attr name="message">
-				<string>Added graph modifier</string>
-			</attr>
-			<attr name="timestamp">
-				<string>2021-11-05T14:49:57</string>
-			</attr>
-		</node>
 	</graph>
 </gxl>

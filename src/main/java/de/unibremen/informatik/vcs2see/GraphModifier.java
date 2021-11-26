@@ -155,7 +155,13 @@ public class GraphModifier {
         node.setAttr("timestamp", new GXLString(commit.getDateTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)));
 
         commitGraph.add(node);
-        document.getDocumentElement().add(commitGraph);
+
+        // Change positions of graphs (git first)
+        GXLGXL gxl = document.getDocumentElement();
+        GXLGraph codeGraph = gxl.getGraphAt(0);
+        gxl.remove(codeGraph);
+        gxl.add(commitGraph);
+        gxl.add(codeGraph);
     }
 
     private int interpolateMostRecent(int size, int index) {
