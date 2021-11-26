@@ -79,7 +79,7 @@ public class RepositoryCrawler {
                 graphModifier.loadNodes();
                 graphModifier.queryCommitData(commit);
                 graphModifier.populateNodes();
-                graphModifier.addCommitGraph(commit);
+                //graphModifier.addCommitGraph(commit);
                 graphModifier.saveFile();
 
                 index++;
