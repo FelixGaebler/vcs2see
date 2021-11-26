@@ -143,25 +143,11 @@ public class GraphModifier {
     }
 
     public void addCommitGraph(Commit commit) {
-        GXLGraph commitGraph = new GXLGraph("Commit");
-        commitGraph.setEdgeIDs(true);
-
-        GXLNode node = new GXLNode(commit.getId());
-        node.setAttr("Linkage.Name", new GXLString(commit.getId()));
-        node.setAttr("Source.Name", new GXLString(repositoryData.getType().name()));
-        node.setAttr("Source.Path", new GXLString(repositoryData.getPath()));
-        node.setAttr("author", new GXLString(commit.getAuthor()));
-        node.setAttr("message", new GXLString(commit.getMessage()));
-        node.setAttr("timestamp", new GXLString(commit.getDateTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)));
-
-        commitGraph.add(node);
-
-        // Change positions of graphs (git first)
-        GXLGXL gxl = document.getDocumentElement();
-        GXLGraph codeGraph = gxl.getGraphAt(0);
-        gxl.remove(codeGraph);
-        gxl.add(commitGraph);
-        gxl.add(codeGraph);
+        GXLGraph codeGraph = document.getDocumentElement().getGraphAt(0);
+        codeGraph.setAttr("CommitId", new GXLString(commit.getId()));
+        codeGraph.setAttr("CommitAuthor", new GXLString(commit.getAuthor()));
+        codeGraph.setAttr("CommitAuthor", new GXLString(commit.getMessage()));
+        codeGraph.setAttr("CommitTimestamp", new GXLString(commit.getDateTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)));
     }
 
     private int interpolateMostRecent(int size, int index) {

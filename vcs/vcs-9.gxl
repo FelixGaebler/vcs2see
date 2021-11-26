@@ -3,29 +3,16 @@
 <!DOCTYPE gxl
   SYSTEM "http://www.gupro.de/GXL/gxl-1.0.dtd">
 <gxl xmlns:xlink="http://www.w3.org/1999/xlink">
-	<graph edgeids="true" id="Commit">
-		<node id="8c8319c566fbd3d752503f417c413a88707930c7">
-			<attr name="Linkage.Name">
-				<string>8c8319c566fbd3d752503f417c413a88707930c7</string>
-			</attr>
-			<attr name="Source.Name">
-				<string>GIT</string>
-			</attr>
-			<attr name="Source.Path">
-				<string>C:\Users\Felix Gaebler\Desktop\- Bachelorthesis - Felix Gaebler\example</string>
-			</attr>
-			<attr name="author">
-				<string>Felix Gaebler</string>
-			</attr>
-			<attr name="message">
-				<string>Removed trash</string>
-			</attr>
-			<attr name="timestamp">
-				<string>2021-11-05T10:33:13</string>
-			</attr>
-		</node>
-	</graph>
 	<graph edgeids="true" id="Clones">
+		<attr name="CommitId">
+			<string>8c8319c566fbd3d752503f417c413a88707930c7</string>
+		</attr>
+		<attr name="CommitAuthor">
+			<string>Removed trash</string>
+		</attr>
+		<attr name="CommitTimestamp">
+			<string>2021-11-05T10:33:13</string>
+		</attr>
 		<node id="N1">
 			<type xlink:href="File"/>
 			<attr name="Metric.Number_of_Tokens">
@@ -50,10 +37,10 @@
 				<string>de/unibremen/informatik/vcs2see/</string>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Recent_Edit">
-				<int>192</int>
+				<float>192.0</float>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Frequent_Edit">
-				<int>51</int>
+				<float>51.0</float>
 			</attr>
 		</node>
 		<node id="N2">
@@ -116,10 +103,10 @@
 				<string>de/unibremen/informatik/vcs2see/</string>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Recent_Edit">
-				<int>24</int>
+				<float>24.0</float>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Frequent_Edit">
-				<int>0</int>
+				<float>0.0</float>
 			</attr>
 		</node>
 		<node id="N7">
@@ -146,10 +133,10 @@
 				<string>de/unibremen/informatik/vcs2see/</string>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Recent_Edit">
-				<int>45</int>
+				<float>45.0</float>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Frequent_Edit">
-				<int>0</int>
+				<float>0.0</float>
 			</attr>
 		</node>
 		<node id="N8">
@@ -176,10 +163,10 @@
 				<string>de/unibremen/informatik/vcs2see/</string>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Recent_Edit">
-				<int>213</int>
+				<float>213.0</float>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Frequent_Edit">
-				<int>51</int>
+				<float>51.0</float>
 			</attr>
 		</node>
 		<node id="N9">
@@ -206,10 +193,10 @@
 				<string>de/unibremen/informatik/vcs2see/</string>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Recent_Edit">
-				<int>234</int>
+				<float>234.0</float>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Frequent_Edit">
-				<int>51</int>
+				<float>51.0</float>
 			</attr>
 		</node>
 		<node id="N10">
@@ -236,10 +223,10 @@
 				<string>de/unibremen/informatik/vcs2see/predicates/</string>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Recent_Edit">
-				<int>255</int>
+				<float>255.0</float>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Frequent_Edit">
-				<int>51</int>
+				<float>51.0</float>
 			</attr>
 		</node>
 		<node id="N11">
@@ -275,10 +262,10 @@
 				<string>de/unibremen/informatik/vcs2see/predicates/</string>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Recent_Edit">
-				<int>66</int>
+				<float>66.0</float>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Frequent_Edit">
-				<int>0</int>
+				<float>0.0</float>
 			</attr>
 		</node>
 		<node id="N13">
@@ -305,10 +292,10 @@
 				<string>de/unibremen/informatik/vcs2see/predicates/</string>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Recent_Edit">
-				<int>87</int>
+				<float>87.0</float>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Frequent_Edit">
-				<int>0</int>
+				<float>0.0</float>
 			</attr>
 		</node>
 		<edge from="N4" id="E1" to="N5">
