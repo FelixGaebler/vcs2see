@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE gxl SYSTEM "http://www.gupro.de/GXL/gxl-1.0.dtd">
+
+<!DOCTYPE gxl
+  SYSTEM "http://www.gupro.de/GXL/gxl-1.0.dtd">
 <gxl xmlns:xlink="http://www.w3.org/1999/xlink">
 	<graph edgeids="true" id="Clones">
 		<node id="N1">
@@ -24,6 +26,15 @@
 			</attr>
 			<attr name="Source.Path">
 				<string>de/unibremen/informatik/vcs2see/</string>
+			</attr>
+			<attr name="Metric.Vcs2See.Commit.Line_Changes">
+				<int>23</int>
+			</attr>
+			<attr name="Metric.Vcs2See.Commit.Lines_Added">
+				<int>12</int>
+			</attr>
+			<attr name="Metric.Vcs2See.Commit.Lines_Deleted">
+				<int>11</int>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Recent_Edit">
 				<int>221</int>
@@ -121,6 +132,15 @@
 			<attr name="Source.Path">
 				<string>de/unibremen/informatik/vcs2see/</string>
 			</attr>
+			<attr name="Metric.Vcs2See.Commit.Line_Changes">
+				<int>61</int>
+			</attr>
+			<attr name="Metric.Vcs2See.Commit.Lines_Added">
+				<int>49</int>
+			</attr>
+			<attr name="Metric.Vcs2See.Commit.Lines_Deleted">
+				<int>12</int>
+			</attr>
 			<attr name="Metric.Vcs2See.Most_Recent_Edit">
 				<int>238</int>
 			</attr>
@@ -181,6 +201,15 @@
 			<attr name="Source.Path">
 				<string>de/unibremen/informatik/vcs2see/</string>
 			</attr>
+			<attr name="Metric.Vcs2See.Commit.Line_Changes">
+				<int>3</int>
+			</attr>
+			<attr name="Metric.Vcs2See.Commit.Lines_Added">
+				<int>1</int>
+			</attr>
+			<attr name="Metric.Vcs2See.Commit.Lines_Deleted">
+				<int>2</int>
+			</attr>
 			<attr name="Metric.Vcs2See.Most_Recent_Edit">
 				<int>255</int>
 			</attr>
@@ -210,6 +239,15 @@
 			</attr>
 			<attr name="Source.Path">
 				<string>de/unibremen/informatik/vcs2see/</string>
+			</attr>
+			<attr name="Metric.Vcs2See.Commit.Line_Changes">
+				<int>35</int>
+			</attr>
+			<attr name="Metric.Vcs2See.Commit.Lines_Added">
+				<int>35</int>
+			</attr>
+			<attr name="Metric.Vcs2See.Commit.Lines_Deleted">
+				<int>0</int>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Recent_Edit">
 				<int>204</int>

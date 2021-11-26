@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE gxl SYSTEM "http://www.gupro.de/GXL/gxl-1.0.dtd">
+
+<!DOCTYPE gxl
+  SYSTEM "http://www.gupro.de/GXL/gxl-1.0.dtd">
 <gxl xmlns:xlink="http://www.w3.org/1999/xlink">
 	<graph edgeids="true" id="Clones">
 		<node id="N1">
@@ -91,6 +93,15 @@
 			<attr name="Source.Path">
 				<string>de/unibremen/informatik/vcs4see/</string>
 			</attr>
+			<attr name="Metric.Vcs2See.Commit.Line_Changes">
+				<int>15</int>
+			</attr>
+			<attr name="Metric.Vcs2See.Commit.Lines_Added">
+				<int>7</int>
+			</attr>
+			<attr name="Metric.Vcs2See.Commit.Lines_Deleted">
+				<int>8</int>
+			</attr>
 			<attr name="Metric.Vcs2See.Most_Recent_Edit">
 				<int>129</int>
 			</attr>
@@ -121,6 +132,15 @@
 			<attr name="Source.Path">
 				<string>de/unibremen/informatik/vcs4see/</string>
 			</attr>
+			<attr name="Metric.Vcs2See.Commit.Line_Changes">
+				<int>5</int>
+			</attr>
+			<attr name="Metric.Vcs2See.Commit.Lines_Added">
+				<int>5</int>
+			</attr>
+			<attr name="Metric.Vcs2See.Commit.Lines_Deleted">
+				<int>0</int>
+			</attr>
 			<attr name="Metric.Vcs2See.Most_Recent_Edit">
 				<int>192</int>
 			</attr>
@@ -150,6 +170,15 @@
 			</attr>
 			<attr name="Source.Path">
 				<string>de/unibremen/informatik/vcs4see/</string>
+			</attr>
+			<attr name="Metric.Vcs2See.Commit.Line_Changes">
+				<int>1</int>
+			</attr>
+			<attr name="Metric.Vcs2See.Commit.Lines_Added">
+				<int>0</int>
+			</attr>
+			<attr name="Metric.Vcs2See.Commit.Lines_Deleted">
+				<int>1</int>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Recent_Edit">
 				<int>255</int>
