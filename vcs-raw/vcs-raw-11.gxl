@@ -28,19 +28,19 @@
 				<string>de/unibremen/informatik/vcs2see/</string>
 			</attr>
 			<attr name="Metric.Vcs2See.Commit.Line_Changes">
-				<int>22</int>
+				<float>22.0</float>
 			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Added">
-				<int>15</int>
+				<float>15.0</float>
 			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Deleted">
-				<int>7</int>
+				<float>7.0</float>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Recent_Edit">
-				<int>217</int>
+				<float>217.0</float>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Frequent_Edit">
-				<int>102</int>
+				<float>102.0</float>
 			</attr>
 		</node>
 		<node id="N2">
@@ -103,10 +103,10 @@
 				<string>de/unibremen/informatik/vcs2see/</string>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Recent_Edit">
-				<int>27</int>
+				<float>27.0</float>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Frequent_Edit">
-				<int>0</int>
+				<float>0.0</float>
 			</attr>
 		</node>
 		<node id="N7">
@@ -133,19 +133,19 @@
 				<string>de/unibremen/informatik/vcs2see/</string>
 			</attr>
 			<attr name="Metric.Vcs2See.Commit.Line_Changes">
-				<int>79</int>
+				<float>79.0</float>
 			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Added">
-				<int>79</int>
+				<float>79.0</float>
 			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Deleted">
-				<int>0</int>
+				<float>0.0</float>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Recent_Edit">
-				<int>198</int>
+				<float>198.0</float>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Frequent_Edit">
-				<int>0</int>
+				<float>0.0</float>
 			</attr>
 		</node>
 		<node id="N8">
@@ -172,10 +172,10 @@
 				<string>de/unibremen/informatik/vcs2see/</string>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Recent_Edit">
-				<int>46</int>
+				<float>46.0</float>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Frequent_Edit">
-				<int>0</int>
+				<float>0.0</float>
 			</attr>
 		</node>
 		<node id="N9">
@@ -202,19 +202,19 @@
 				<string>de/unibremen/informatik/vcs2see/</string>
 			</attr>
 			<attr name="Metric.Vcs2See.Commit.Line_Changes">
-				<int>18</int>
+				<float>18.0</float>
 			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Added">
-				<int>15</int>
+				<float>15.0</float>
 			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Deleted">
-				<int>3</int>
+				<float>3.0</float>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Recent_Edit">
-				<int>236</int>
+				<float>236.0</float>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Frequent_Edit">
-				<int>102</int>
+				<float>102.0</float>
 			</attr>
 		</node>
 		<node id="N10">
@@ -241,19 +241,19 @@
 				<string>de/unibremen/informatik/vcs2see/</string>
 			</attr>
 			<attr name="Metric.Vcs2See.Commit.Line_Changes">
-				<int>5</int>
+				<float>5.0</float>
 			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Added">
-				<int>3</int>
+				<float>3.0</float>
 			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Deleted">
-				<int>2</int>
+				<float>2.0</float>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Recent_Edit">
-				<int>255</int>
+				<float>255.0</float>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Frequent_Edit">
-				<int>102</int>
+				<float>102.0</float>
 			</attr>
 		</node>
 		<node id="N11">
@@ -280,10 +280,10 @@
 				<string>de/unibremen/informatik/vcs2see/predicates/</string>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Recent_Edit">
-				<int>179</int>
+				<float>179.0</float>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Frequent_Edit">
-				<int>51</int>
+				<float>51.0</float>
 			</attr>
 		</node>
 		<node id="N12">
@@ -319,10 +319,10 @@
 				<string>de/unibremen/informatik/vcs2see/predicates/</string>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Recent_Edit">
-				<int>65</int>
+				<float>65.0</float>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Frequent_Edit">
-				<int>0</int>
+				<float>0.0</float>
 			</attr>
 		</node>
 		<node id="N14">
@@ -349,10 +349,10 @@
 				<string>de/unibremen/informatik/vcs2see/predicates/</string>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Recent_Edit">
-				<int>84</int>
+				<float>84.0</float>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Frequent_Edit">
-				<int>0</int>
+				<float>0.0</float>
 			</attr>
 		</node>
 		<edge from="N4" id="E1" to="N5">
