@@ -146,7 +146,7 @@ public class GraphModifier {
         GXLGraph codeGraph = document.getDocumentElement().getGraphAt(0);
         codeGraph.setAttr("CommitId", new GXLString(commit.getId()));
         codeGraph.setAttr("CommitAuthor", new GXLString(commit.getAuthor()));
-        codeGraph.setAttr("CommitAuthor", new GXLString(commit.getMessage()));
+        codeGraph.setAttr("CommitMessage", new GXLString(commit.getMessage()));
         codeGraph.setAttr("CommitTimestamp", new GXLString(commit.getDateTime().format(DateTimeFormatter.ISO_LOCAL_DATE_TIME)));
     }
 
