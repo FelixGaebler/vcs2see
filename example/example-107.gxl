@@ -8,6 +8,9 @@
 			<string>e0b308acf1e1977328d8871f7978f2879845ce4d</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>Update README.md</string>
 		</attr>
 		<attr name="CommitTimestamp">

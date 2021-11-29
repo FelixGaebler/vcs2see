@@ -8,6 +8,9 @@
 			<string>8ae6f10bd74e3903196907a8c2a95ace85f2bab6</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>Merge pull request #8 from thefourtheye/patch-1
 
 Fix typos and improve simple grammatical stuff</string>

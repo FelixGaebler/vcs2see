@@ -8,6 +8,9 @@
 			<string>38061648cca49a05918025d2a470944fc144064a</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>Add parallelStream examples</string>
 		</attr>
 		<attr name="CommitTimestamp">

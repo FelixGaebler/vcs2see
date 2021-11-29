@@ -8,6 +8,9 @@
 			<string>28983b4c0d31d42b54e99acee857d284f0562096</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>extending classes from javascript</string>
 		</attr>
 		<attr name="CommitTimestamp">

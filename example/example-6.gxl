@@ -8,6 +8,9 @@
 			<string>e68ae18efd9bcf3b006933d9f1184ba77bfe960d</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>add even more comparator stuff</string>
 		</attr>
 		<attr name="CommitTimestamp">

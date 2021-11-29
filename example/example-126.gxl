@@ -8,6 +8,9 @@
 			<string>4b92b43d53298652446651f94254341614c7873f</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>Java 11 HttpClient examples</string>
 		</attr>
 		<attr name="CommitTimestamp">

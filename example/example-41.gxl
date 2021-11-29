@@ -8,6 +8,9 @@
 			<string>10e80025fc0883c5660b2b7ac2ec368bf38d0736</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>Add another nashorn sample of dynamically invoking java code at runtime</string>
 		</attr>
 		<attr name="CommitTimestamp">

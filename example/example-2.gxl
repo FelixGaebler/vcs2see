@@ -8,6 +8,9 @@
 			<string>ef919c8ea0d0f40b21113e15f400c3fbe979cf66</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>first commit</string>
 		</attr>
 		<attr name="CommitTimestamp">

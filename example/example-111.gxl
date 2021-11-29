@@ -8,6 +8,9 @@
 			<string>eca818f92634e0a079ee9c310c49d650572b4035</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>Improve description about streaming maps</string>
 		</attr>
 		<attr name="CommitTimestamp">

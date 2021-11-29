@@ -8,6 +8,9 @@
 			<string>48333293a3497405d6f1c7b7d8677e98d66f4f2e</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>Utility for handling checked exceptions in lambdas</string>
 		</attr>
 		<attr name="CommitTimestamp">

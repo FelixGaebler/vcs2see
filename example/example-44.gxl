@@ -8,6 +8,9 @@
 			<string>a42a7d4d37b69e44c4507eaef40707363434ab77</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>Add perf test to compare 8u31 vs 8u40</string>
 		</attr>
 		<attr name="CommitTimestamp">

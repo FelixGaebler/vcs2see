@@ -8,6 +8,9 @@
 			<string>e422b65b230eebaf0177225161da7ad3c486c251</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>Simplify code</string>
 		</attr>
 		<attr name="CommitTimestamp">

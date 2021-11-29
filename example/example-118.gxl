@@ -8,6 +8,9 @@
 			<string>26c0588e1c3098ec469f81d8171304336711bb3a</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>Merge pull request #23 from sboekhoff/sboekhoff
 
 Use class instead of bean.</string>

@@ -8,6 +8,9 @@
 			<string>d42024814890b5d2a39dfada37382003a903b291</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>Merge remote-tracking branch 'origin/master'</string>
 		</attr>
 		<attr name="CommitTimestamp">

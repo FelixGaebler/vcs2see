@@ -8,6 +8,9 @@
 			<string>bf469b4cb114fe59edf650600f09a05904ae246d</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>Merge pull request #28 from fishercoder1534/master
 
 update License to 2017</string>

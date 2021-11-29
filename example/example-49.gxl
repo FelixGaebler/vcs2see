@@ -8,6 +8,9 @@
 			<string>bbf7c93b38eb5a4e903713d5f9052872880cb4fd</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>Some is obsolete, can be replaced with Optional.map (see Optional2)</string>
 		</attr>
 		<attr name="CommitTimestamp">

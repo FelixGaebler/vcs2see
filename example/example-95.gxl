@@ -8,6 +8,9 @@
 			<string>9a57df95b40f9cf4f4d556ad3d3959db750e16ce</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>Merge pull request #4 from shubhamyeole/master
 
 Ignore bin folder</string>

@@ -8,6 +8,9 @@
 			<string>e08a3447f8f4e6299bb6a56dbc05fcf4c01085b0</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>Add Stream.js link</string>
 		</attr>
 		<attr name="CommitTimestamp">

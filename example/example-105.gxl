@@ -8,6 +8,9 @@
 			<string>48cf8541f4f799a0a3e4c0acd735365623352215</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>Merge pull request #6 from aidendeom/master
 
 Fix typo in README.md</string>

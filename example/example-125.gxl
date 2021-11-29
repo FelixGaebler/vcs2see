@@ -8,6 +8,9 @@
 			<string>81a0fa3aa1d6ec2409e0226d3a6c2f5c2d19a41d</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>Java 11 local variable samples</string>
 		</attr>
 		<attr name="CommitTimestamp">

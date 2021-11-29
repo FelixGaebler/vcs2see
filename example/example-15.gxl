@@ -8,6 +8,9 @@
 			<string>3d559e52ad59d9fd392b0719e1869dc372236998</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>pass js objects to java and work with properties and members on java side</string>
 		</attr>
 		<attr name="CommitTimestamp">

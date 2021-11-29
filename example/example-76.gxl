@@ -8,6 +8,9 @@
 			<string>eac9257fa6c9fdbfb1c29b41f78049e862d67451</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>Add LongAccumulator example</string>
 		</attr>
 		<attr name="CommitTimestamp">

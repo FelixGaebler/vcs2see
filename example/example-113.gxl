@@ -8,6 +8,9 @@
 			<string>1a596004225564264c95f19464714fbdd092979c</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>Merge pull request #16 from grijeshsaini/master
 
 BiConsumer Example</string>

@@ -8,6 +8,9 @@
 			<string>131d87df4633893b097b6bd0af3bda265c7e6b93</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>Add more stream examples</string>
 		</attr>
 		<attr name="CommitTimestamp">

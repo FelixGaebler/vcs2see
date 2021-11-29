@@ -8,6 +8,9 @@
 			<string>bd4b8c35dd09927d047ac74cd01b582a86921ec3</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>add more api extension samples</string>
 		</attr>
 		<attr name="CommitTimestamp">

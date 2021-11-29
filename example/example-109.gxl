@@ -8,6 +8,9 @@
 			<string>1d8eb3f2ef423fdf4216121e2836e467d058901f</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>Merge pull request #9 from rmtheis/patch-1
 
 Fixed spelling</string>

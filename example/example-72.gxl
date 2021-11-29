@@ -8,6 +8,9 @@
 			<string>e98f201d77c00aa6f8e5983dac34fb935fd902f7</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>Atomic accumulate</string>
 		</attr>
 		<attr name="CommitTimestamp">

@@ -8,6 +8,9 @@
 			<string>7fa21e257de5961ef4cac107be530a78395c73ae</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>Fix link</string>
 		</attr>
 		<attr name="CommitTimestamp">

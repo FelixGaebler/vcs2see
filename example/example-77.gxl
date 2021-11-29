@@ -8,6 +8,9 @@
 			<string>402225560d7e1b4fe8cdb618c2e9ae0fcaeea4d9</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>Add Semaphore example</string>
 		</attr>
 		<attr name="CommitTimestamp">

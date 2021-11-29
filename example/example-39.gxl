@@ -8,6 +8,9 @@
 			<string>2a5896179e6fa8eef40498d430aaf42801ba2da8</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>winterbe</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>Add nashorn dialect sample file</string>
 		</attr>
 		<attr name="CommitTimestamp">

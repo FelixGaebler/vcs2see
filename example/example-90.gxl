@@ -8,6 +8,9 @@
 			<string>c80d39b2560298e14a7f566779d9a6dbbe51d285</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>ConcurrentHashMap examples</string>
 		</attr>
 		<attr name="CommitTimestamp">

@@ -8,6 +8,9 @@
 			<string>e8cc2fc68ce91bf441a985b86598db9e7d4f5614</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>Test AtomicInteger</string>
 		</attr>
 		<attr name="CommitTimestamp">

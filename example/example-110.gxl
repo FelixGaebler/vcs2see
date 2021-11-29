@@ -8,6 +8,9 @@
 			<string>851b6490b14d23e0bd5d11bb755d2543c5814ebb</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>Merge pull request #10 from chase-benson/patch-1
 
 Readme Typo Fix</string>

@@ -8,6 +8,9 @@
 			<string>2946422c4d62d4adb15424fe2cb3c7be568066fc</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>Add link to Java 8 Stream Tutorial</string>
 		</attr>
 		<attr name="CommitTimestamp">

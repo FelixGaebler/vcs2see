@@ -8,6 +8,9 @@
 			<string>01dfc048f2f1ff68500f196114d2696423f3cd24</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>Lock example</string>
 		</attr>
 		<attr name="CommitTimestamp">

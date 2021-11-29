@@ -8,6 +8,9 @@
 			<string>e2b2a1fe02b890bea309fd8714cc6ba268d99a9d</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>Chars as int stream</string>
 		</attr>
 		<attr name="CommitTimestamp">

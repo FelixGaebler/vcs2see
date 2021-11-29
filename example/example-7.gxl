@@ -8,6 +8,9 @@
 			<string>3693f6b23064b4a4b0e8277081e9297182f342d6</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>remove obsolete assert</string>
 		</attr>
 		<attr name="CommitTimestamp">

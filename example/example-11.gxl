@@ -8,6 +8,9 @@
 			<string>56c19d786e49cf43e692db12a2326f464c13f34d</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>use load function</string>
 		</attr>
 		<attr name="CommitTimestamp">

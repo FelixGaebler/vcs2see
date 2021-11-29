@@ -8,6 +8,9 @@
 			<string>7c2d82cac5cd6747d7ccd60b2c54da45c1426179</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>minor changes in nashorn samples</string>
 		</attr>
 		<attr name="CommitTimestamp">

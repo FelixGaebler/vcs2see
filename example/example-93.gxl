@@ -8,6 +8,9 @@
 			<string>0c6e52cdc9e0741c99fdbe4f88c0c86cebfd1733</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>Nashorn scope samples</string>
 		</attr>
 		<attr name="CommitTimestamp">

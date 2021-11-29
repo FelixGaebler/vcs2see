@@ -8,6 +8,9 @@
 			<string>70a38ae1d04fe22a9fde47f6cbde6325f7d9b1d2</string>
 		</attr>
 		<attr name="CommitAuthor">
+			<string>Benjamin Winterberg</string>
+		</attr>
+		<attr name="CommitMessage">
 			<string>Add proper try/with statements</string>
 		</attr>
 		<attr name="CommitTimestamp">
