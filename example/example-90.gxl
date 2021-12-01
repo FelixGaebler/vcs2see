@@ -148,10 +148,13 @@
 				<int>50</int>
 			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Added">
-				<int>47</int>
+				<int>46</int>
+			</attr>
+			<attr name="Metric.Vcs2See.Commit.Lines_Edited">
+				<int>1</int>
 			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Deleted">
-				<int>3</int>
+				<int>2</int>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Recent_Edit">
 				<int>255</int>

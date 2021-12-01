@@ -45,6 +45,9 @@
 			<attr name="Metric.Vcs2See.Commit.Lines_Added">
 				<int>47</int>
 			</attr>
+			<attr name="Metric.Vcs2See.Commit.Lines_Edited">
+				<int>0</int>
+			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Deleted">
 				<int>0</int>
 			</attr>
@@ -111,6 +114,9 @@
 			<attr name="Metric.Vcs2See.Commit.Lines_Added">
 				<int>37</int>
 			</attr>
+			<attr name="Metric.Vcs2See.Commit.Lines_Edited">
+				<int>0</int>
+			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Deleted">
 				<int>0</int>
 			</attr>
@@ -149,6 +155,9 @@
 			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Added">
 				<int>35</int>
+			</attr>
+			<attr name="Metric.Vcs2See.Commit.Lines_Edited">
+				<int>0</int>
 			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Deleted">
 				<int>0</int>
@@ -189,6 +198,9 @@
 			<attr name="Metric.Vcs2See.Commit.Lines_Added">
 				<int>34</int>
 			</attr>
+			<attr name="Metric.Vcs2See.Commit.Lines_Edited">
+				<int>0</int>
+			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Deleted">
 				<int>0</int>
 			</attr>
@@ -227,6 +239,9 @@
 			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Added">
 				<int>47</int>
+			</attr>
+			<attr name="Metric.Vcs2See.Commit.Lines_Edited">
+				<int>0</int>
 			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Deleted">
 				<int>0</int>
@@ -267,6 +282,9 @@
 			<attr name="Metric.Vcs2See.Commit.Lines_Added">
 				<int>84</int>
 			</attr>
+			<attr name="Metric.Vcs2See.Commit.Lines_Edited">
+				<int>0</int>
+			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Deleted">
 				<int>0</int>
 			</attr>
@@ -305,6 +323,9 @@
 			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Added">
 				<int>41</int>
+			</attr>
+			<attr name="Metric.Vcs2See.Commit.Lines_Edited">
+				<int>0</int>
 			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Deleted">
 				<int>0</int>
@@ -345,6 +366,9 @@
 			<attr name="Metric.Vcs2See.Commit.Lines_Added">
 				<int>40</int>
 			</attr>
+			<attr name="Metric.Vcs2See.Commit.Lines_Edited">
+				<int>0</int>
+			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Deleted">
 				<int>0</int>
 			</attr>
@@ -383,6 +407,9 @@
 			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Added">
 				<int>47</int>
+			</attr>
+			<attr name="Metric.Vcs2See.Commit.Lines_Edited">
+				<int>0</int>
 			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Deleted">
 				<int>0</int>
@@ -423,6 +450,9 @@
 			<attr name="Metric.Vcs2See.Commit.Lines_Added">
 				<int>72</int>
 			</attr>
+			<attr name="Metric.Vcs2See.Commit.Lines_Edited">
+				<int>0</int>
+			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Deleted">
 				<int>0</int>
 			</attr>
@@ -461,6 +491,9 @@
 			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Added">
 				<int>48</int>
+			</attr>
+			<attr name="Metric.Vcs2See.Commit.Lines_Edited">
+				<int>0</int>
 			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Deleted">
 				<int>0</int>
@@ -501,6 +534,9 @@
 			<attr name="Metric.Vcs2See.Commit.Lines_Added">
 				<int>20</int>
 			</attr>
+			<attr name="Metric.Vcs2See.Commit.Lines_Edited">
+				<int>0</int>
+			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Deleted">
 				<int>0</int>
 			</attr>
@@ -539,6 +575,9 @@
 			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Added">
 				<int>16</int>
+			</attr>
+			<attr name="Metric.Vcs2See.Commit.Lines_Edited">
+				<int>0</int>
 			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Deleted">
 				<int>0</int>
@@ -579,6 +618,9 @@
 			<attr name="Metric.Vcs2See.Commit.Lines_Added">
 				<int>102</int>
 			</attr>
+			<attr name="Metric.Vcs2See.Commit.Lines_Edited">
+				<int>0</int>
+			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Deleted">
 				<int>0</int>
 			</attr>
@@ -618,6 +660,9 @@
 			<attr name="Metric.Vcs2See.Commit.Lines_Added">
 				<int>37</int>
 			</attr>
+			<attr name="Metric.Vcs2See.Commit.Lines_Edited">
+				<int>0</int>
+			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Deleted">
 				<int>0</int>
 			</attr>
@@ -656,6 +701,9 @@
 			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Added">
 				<int>59</int>
+			</attr>
+			<attr name="Metric.Vcs2See.Commit.Lines_Edited">
+				<int>0</int>
 			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Deleted">
 				<int>0</int>

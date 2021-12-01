@@ -610,10 +610,13 @@
 				<int>2</int>
 			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Added">
+				<int>0</int>
+			</attr>
+			<attr name="Metric.Vcs2See.Commit.Lines_Edited">
 				<int>1</int>
 			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Deleted">
-				<int>1</int>
+				<int>0</int>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Recent_Edit">
 				<int>237</int>
@@ -829,10 +832,13 @@
 				<int>41</int>
 			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Added">
-				<int>19</int>
+				<int>16</int>
+			</attr>
+			<attr name="Metric.Vcs2See.Commit.Lines_Edited">
+				<int>3</int>
 			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Deleted">
-				<int>22</int>
+				<int>19</int>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Recent_Edit">
 				<int>246</int>
@@ -898,10 +904,13 @@
 				<int>4</int>
 			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Added">
+				<int>0</int>
+			</attr>
+			<attr name="Metric.Vcs2See.Commit.Lines_Edited">
 				<int>2</int>
 			</attr>
 			<attr name="Metric.Vcs2See.Commit.Lines_Deleted">
-				<int>2</int>
+				<int>0</int>
 			</attr>
 			<attr name="Metric.Vcs2See.Most_Recent_Edit">
 				<int>255</int>
