@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
+import java.util.stream.Collectors;
 
 /**
  * Component which can modify the graph of the GXL file.
@@ -106,13 +107,26 @@ public class GraphModifier {
             // Calculate and add line changes.
             if(nodes.containsKey(path)) {
                 List<LineChange> lineChanges = fileChange.computeDiff();
-                int inserted = (int) lineChanges.stream().filter(lineChange -> lineChange.getType() == LineChange.Type.INSERT).count();
-                int deleted = (int) lineChanges.stream().filter(lineChange -> lineChange.getType() == LineChange.Type.DELETE).count();
+
+                List<Integer> insertedLines = lineChanges.stream()
+                        .filter(lineChange -> lineChange.getType() == LineChange.Type.INSERT)
+                        .map(LineChange::getLine)
+                        .collect(Collectors.toList());
+                List<Integer> deletedLines = lineChanges.stream()
+                        .filter(lineChange -> lineChange.getType() == LineChange.Type.DELETE)
+                        .map(LineChange::getLine)
+                        .collect(Collectors.toList());
+                List<Integer> editedLines = insertedLines.stream()
+                        .filter(deletedLines::contains)
+                        .collect(Collectors.toList());
+                insertedLines.removeAll(editedLines);
+                deletedLines.removeAll(editedLines);
 
                 GXLNode node = nodes.get(path);
                 node.setAttr("Metric.Vcs2See.Commit.Line_Changes", new GXLInt(lineChanges.size()));
-                node.setAttr("Metric.Vcs2See.Commit.Lines_Added", new GXLInt(inserted));
-                node.setAttr("Metric.Vcs2See.Commit.Lines_Deleted", new GXLInt(deleted));
+                node.setAttr("Metric.Vcs2See.Commit.Lines_Added", new GXLInt(insertedLines.size()));
+                node.setAttr("Metric.Vcs2See.Commit.Lines_Edited", new GXLInt(editedLines.size()));
+                node.setAttr("Metric.Vcs2See.Commit.Lines_Deleted", new GXLInt(deletedLines.size()));
             }
 
             System.out.println("- " + path);
